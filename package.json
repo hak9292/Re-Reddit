@@ -1,5 +1,5 @@
 {
-  "name": "mernapp",
+  "name": "re-reddit",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -16,10 +16,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.26.1",
-    "concurrently": "^7.1.0",
-    "express": "^4.17.3",
-    "mongoose": "^6.2.10",
-    "morgan": "^1.10.0"
+    "axios": "^0.19.0",
+    "concurrently": "^5.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.9",
+    "morgan": "^1.9.1"
+
   }
 }

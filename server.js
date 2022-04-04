@@ -4,11 +4,11 @@ const morgan = require('morgan');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 
 const routes = require('./routes/api');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/re-reddit', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/re-redditDB', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
