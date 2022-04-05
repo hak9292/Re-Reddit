@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const BlogPost = require('../models/blogPost');
-
+const Comment = require('../models/Comment');
 
 // Routes
 router.get('/', (req, res) => {
@@ -44,6 +44,11 @@ router.get('/name', (req, res) => {
     res.json(data);
 });
 
-
+router.get('/comments', (req, res) => {
+    Comment.find()
+    .then(comments => {
+        res.json(comments)
+    });
+})
 
 module.exports = router;
