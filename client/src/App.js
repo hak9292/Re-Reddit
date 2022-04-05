@@ -8,16 +8,26 @@ import { useState, useEffect } from "react";
 
 
 export default function App() {
+  const [comments, setComments] = useState([]);
+  const [user, setUser] = useState({});
   useEffect(() => {
-    axios.get('localhost:8080/user', {
+    axios.get('/user', {
       withCredentials: true
     })
-      .then(response => SpeechSynthesisUtterance(response.data));
+      .then(response => setUser(response.data));
+    axios.get('/comments', {
+      withCredentials: true})
+      .then(response => setComments(response.data));
+
   }, []);
   return (
     <div>
       <Header />
-      <Post />
+      <div>
+        {comments.map(comment => (
+          <Post {...comment}/>
+        ))}
+      </div>
       <Subred />
     </div>
   );
