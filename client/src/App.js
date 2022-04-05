@@ -11,11 +11,11 @@ export default function App() {
   const [comments, setComments] = useState([]);
   const [user, setUser] = useState({});
   useEffect(() => {
-    axios.get('/user', {
+    axios.get('http://localhost:8080/user', {
       withCredentials: true
     })
       .then(response => setUser(response.data));
-    axios.get('/comments', {
+    axios.get('http:/localhost:8080/comments', {
       withCredentials: true})
       .then(response => setComments(response.data));
 
