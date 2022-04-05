@@ -1,0 +1,63 @@
+:root {
+    --rereddit-dark: #030303;
+    --rereddit-light-dark: #27272A;
+    --rereddit-lighter-dark: #3d3d3d;
+    --rereddit-light-grey: #BCC0C1;
+
+}
+
+.rereddit-header {
+    align-items: center;
+    background-color: var(--rereddit-dark);
+    padding-left: 1em;
+    min-width: 100%;
+}
+
+.rereddit-search {
+    margin: 6px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    border: solid 1px var(--rereddit-lighter-dark);
+    background-color: var(--rereddit-light-dark);
+}
+
+.search-bar {
+    background-color: var(--rereddit-light-dark);
+    color: whitesmoke;
+    margin: 4px;
+    border: none;
+    outline: none;
+    font-size: smaller;
+}
+
+.rereddit-logo {
+    height: 32px;
+    width: 32px;
+    box-shadow: 3 3 10px 10px #030303 inset;
+}
+
+.user-dropdown {
+    min-height:32px;
+    margin: 6px;
+    border-radius: 6px;
+    background-color: var(--rereddit-dark);
+
+}
+.user-dropdown button {
+    border: none;
+    padding:6px;
+}
+
+.user-dropdown i {
+    filter: invert(75%);
+    background: transparent;
+    height: 32px;
+    width: 32px;
+}
+
+#logo {
+    width: 32px;
+    height: 32px;
+    position: left;
+    
+}
