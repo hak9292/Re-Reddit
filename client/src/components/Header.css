@@ -36,6 +36,23 @@
     box-shadow: 3 3 10px 10px #030303 inset;
 }
 
+.auth-buttons {
+    border: solid var(--rereddit-light-grey);
+    background-color: var(--rereddit-light-grey);
+    color: var(--rereddit-light-dark);
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    margin: 4px 2px;
+    font-size: smaller;
+    font-weight: bold;
+    cursor: pointer;
+    height: auto;
+    width: 100%;
+    border-radius: 32px;
+
+}
+
 .user-dropdown {
     min-height:32px;
     margin: 6px;

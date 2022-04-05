@@ -2,6 +2,9 @@ import React from 'react';
 
 import Logo from '../assets/images/reddit-logo-icon.png';
 import './Header.css';
+import Button from './Button';
+
+
 
 function Header() {
   return (
@@ -13,7 +16,7 @@ function Header() {
             <img src={Logo} alt="rereddit logo" className='rereddit-logo m-2'/>
           </div>
           {/* search box */}
-          <div>
+          <div className='d-flex w-100'>
             <form className='rereddit-search text-danger flex-grow-1 w-auto'>
               <div>
                 <i class="bi bi-search"></i>
@@ -21,12 +24,31 @@ function Header() {
               </div>
             </form>
           </div>
+          {/* Login/Signup Buttons */}
+          <span className='d-inline-flex text-nowrap'>
+            <div className='col-6 px-1'>
+              <Button outline> Log In </Button>
+            </div>
+            <div className='col-6 px-1'>
+              <Button> Sign Up </Button>
+            </div>      
+          </span>
+
+          
           {/* user dropdown */}
-          <div className='user-dropdown'>
+          <span className='user-dropdown'>
             <button className='bg-transparent'>
-              <i class="bi bi-person-circle"></i> <i class="bi bi-chevron-down"></i>
+              <div className='container d-inline-flex'>
+                <div className='col-6 p-1'>
+                <i class="bi bi-person-circle"></i>
+                </div>
+                <div className='col-6 p-1'>
+                  <i class="bi bi-chevron-down"></i>
+                </div>
+              </div>
+
             </button>
-          </div>
+          </span>
         </div>
       </header>
     </div>
