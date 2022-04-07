@@ -1,8 +1,9 @@
 import './AuthModal.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
+// import InputGroup from 'react-bootstrap/InputGroup';
+// import FormControl from 'react-bootstrap/FormControl';
+import Input from './Input';
 
 // function AuthModal(props) {
 //     return (
@@ -29,18 +30,7 @@ function AuthModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className='modal-content'>
-            <InputGroup className="mb-3">
-                <FormControl
-                placeholder="Username"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                />
-            </InputGroup>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </p>
+           <Input />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
