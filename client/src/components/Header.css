@@ -1,10 +1,14 @@
 :root {
     --rereddit-dark: #030303;
+    --rereddit-dark-brighter: #1A1A1B;
     --rereddit-light-dark: #27272A;
     --rereddit-lighter-dark: #3d3d3d;
     --rereddit-light-grey: #BCC0C1;
     --rereddit-bright: #0EC6C5;
 
+    --rereddit-text: #c2c7cad4;
+    --rereddit-text-lighter: #e6e9eb;
+    --rereddit-text-darker: #6f7071;
 }
 
 .rereddit-header {
@@ -19,11 +23,11 @@
     padding: 3px 6px;
     border-radius: 6px;
     border: solid 1px var(--rereddit-lighter-dark);
-    background-color: var(--rereddit-light-dark);
+    background-color: var(--rereddit-dark-brighter);
 }
 
 .search-bar {
-    background-color: var(--rereddit-light-dark);
+    background-color: var(--rereddit-dark-brighter);
     color: whitesmoke;
     margin: 4px;
     border: none;
@@ -40,7 +44,7 @@
 .auth-buttons {
     border: solid var(--rereddit-light-grey);
     background-color: var(--rereddit-light-grey);
-    color: var(--rereddit-light-dark);
+    color: var(--rereddit-dark-brighter);
     padding: 10px 20px;
     text-align: center;
     display: inline-block;
@@ -66,9 +70,13 @@
     padding:6px;
 }
 
+.default-avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 100%;
+}
 .user-dropdown i {
     filter: invert(75%);
-    background: transparent;
     height: 32px;
     width: 32px;
 }
@@ -81,7 +89,7 @@
 }
 
 .sub-header {
-    background-color: var(--rereddit-light-dark);
+    background-color: var(--rereddit-dark-brighter);
 }
 .title-card {
     margin: -2rem 2rem 1rem 2rem;
@@ -109,4 +117,51 @@
 .post-area {
     background-color: var(--rereddit-dark);
     padding: 1.5rem 1rem;
+}
+
+.create-post {
+    border-radius: 6px;
+    border: solid 1px var(--rereddit-lighter-dark);
+    background-color: var(--rereddit-dark-brighter);
+    color: var(--rereddit-light-grey);
+    padding-right: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.post-form {
+    border-radius: 6px;
+    border: solid 1px var(--rereddit-lighter-dark);
+    background-color: var(--rereddit-light-dark);
+    color: var(--rereddit-light-grey);
+    padding: 0 1rem 0 1rem;
+}
+
+.post-container {
+    border-radius: 6px;
+    border: solid 1px var(--rereddit-lighter-dark);
+    background-color: var(--rereddit-dark-brighter);
+    padding: .5rem 1rem 0 1rem;
+}
+
+.post-author {
+    font-size: 14px;
+    color: var(--rereddit-text-darker);
+    margin: 0 8px 8px 8px;
+    font-weight: 300;
+}
+
+.post-title {
+    display: inline;
+    font-size: 18px;
+    margin: 0 8px;
+    color: var(--rereddit-text);
+    
+}
+
+.post-content {
+    word-wrap: break-word;
+    font-size: 14px;
+    margin: 8px 8px 0 8px;
+    color: var(--rereddit-text-lighter);
 }

@@ -1,8 +1,8 @@
 import React from 'react';
-
 import Logo from '../assets/reddit-logo-icon.png';
 import './Header.css';
 import Button from './Button';
+import Avatar from '../assets/default-avatar.webp';
 
 
 function Header() {
@@ -35,9 +35,10 @@ function Header() {
           {/* user dropdown */}
           <span className='user-dropdown'>
             <button className='bg-transparent'>
-              <div className='container d-inline-flex'>
+              <div className='container d-inline-flex align-items-center'>
                 <div className='col-6 p-1'>
-                <i class="bi bi-person-circle"></i>
+                {/* <i class="bi bi-person-circle"></i> */}
+                <img src={Avatar} className='default-avatar'/>
                 </div>
                 <div className='col-6 p-1'>
                   <i class="bi bi-chevron-down"></i>
