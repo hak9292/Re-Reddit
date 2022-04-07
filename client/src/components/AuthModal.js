@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Input from './Input';
 import {useState} from 'react';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
 // function AuthModal(props) {
 //     return (
@@ -23,6 +24,11 @@ function AuthModal(props) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    function register(e) {
+      e.preventDefault();
+      // axios.post('');
+    }
 
     return (
       <Modal style={{backgroundColor: 'rgba(0,0,0,.6)'}}
@@ -52,7 +58,7 @@ function AuthModal(props) {
            )}
            {/* <Input /> */}
 
-           <Form.Group className="mb-3" controlId="formBasicUsername">
+            <Form.Group className="mb-3" controlId="formBasicUsername">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="username" placeholder="Enter username" value={username} onChange={e => setUsername(e.target.value)} />
             </Form.Group>
@@ -62,20 +68,29 @@ function AuthModal(props) {
                 <Form.Control type="password" placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)} />
             </Form.Group>
 
-           <Button variant="primary" type="submit" className='btn-block' style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}}>
-                {modalType === 'login' ? 'Log In': 'Sign Up'}
-          </Button>
-           {/* set state to 'register' if the sign up button is clicked */}
-           {modalType === 'login' && (
-              <div>
-                New to Reddit? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => setModalType('register')}  className='my-2'>Sign Up</Button>
-              </div>
-          )}
-            {modalType === 'register' && (
-              <div>
-                Already have an account? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => setModalType('login')}  className='my-2'>Log In</Button>
-              </div>
-          )}
+            {modalType === "login" && (
+              <Button variant="primary" type="submit" className='btn-block' style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}}>
+                Log In
+              </Button>
+            )}
+
+            {modalType === "register" && (
+              <Button variant="primary" type="submit" className='btn-block' style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}} onClick={e => register()} >
+                Sign Up
+              </Button>
+            )} 
+
+            {/* set state to 'register' if the sign up button is clicked */}
+            {modalType === 'login' && (
+                <div>
+                  New to Reddit? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => setModalType('register')}  className='my-2'>Sign Up</Button>
+                </div>
+            )}
+              {modalType === 'register' && (
+                <div>
+                  Already have an account? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => setModalType('login')}  className='my-2'>Log In</Button>
+                </div>
+            )}
 
         </Modal.Body>
         <Modal.Footer>
