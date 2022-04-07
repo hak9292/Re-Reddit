@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <Header />
-      <AuthModal />
+      <AuthModal show={false}/>
     </div>
   );
 }

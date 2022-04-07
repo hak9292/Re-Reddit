@@ -25,9 +25,25 @@ function AuthModal(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const visibleClass = props.show ? 'block' : 'hidden';
+    // if (modalContext.show && modalContext.show !== modalType) {
+    //   setModalType(modalContext.show);
+    // }
+
+    // const modalContext = useContext(AuthModalContext);
+    // const user = useContext(UserContext);
+
     function register(e) {
       e.preventDefault();
-      // axios.post('');
+      const data = {email,username,password};
+      axios.post('http://localhost:4000/register', data, {withCredentials:true});
+        // .then(() => {
+        //   user.setUser({username});
+        //   modalContext.setShow(false);
+        //   setEmail('');
+        //   setPassword('');
+        //   setUsername('');
+        // });
     }
 
     return (
@@ -36,6 +52,7 @@ function AuthModal(props) {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className={visibleClass}
       >
         <Modal.Header closeButton >
           {modalType === 'login' && (
@@ -75,7 +92,7 @@ function AuthModal(props) {
             )}
 
             {modalType === "register" && (
-              <Button variant="primary" type="submit" className='btn-block' style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}} onClick={e => register()} >
+              <Button variant="primary" type="submit" className='btn-block' style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}} onClick={e => register(e)} >
                 Sign Up
               </Button>
             )} 

@@ -5,10 +5,14 @@ import mongoose from "mongoose";
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import User from './models/User.js';
 
+
+const secret = 'secret123';
 const app = express();
-app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true,
@@ -23,25 +27,25 @@ app.get('/', (req, res) => {
     res.send('ok');
   });
 
-  app.post('/register', (req, res) => {
+app.post('/register', (req, res) => {
     const {email,username} = req.body;
     // encrypt password with bcrypt
     const password = bcrypt.hashSync(req.body.password, 10);
     const user = new User({email,username,password});
     user.save().then(user => {
-      jwt.sign({id:user._id}, secret, (err, token) => {
+        jwt.sign({id:user._id}, secret, (err, token) => {
         if (err) {
-          console.log(err);
-          res.sendStatus(500);
+            console.log(err);
+            res.sendStatus(500);
         } else {
-          res.status(201).cookie('token', token).send();
+            res.status(201).cookie('token', token).send();
         }
-      });
+        });
     }).catch(e => {
-      console.log(e);
-      res.sendStatus(500);
+        console.log(e);
+        res.sendStatus(500);
     });
-  });
+});
 
 app.listen(4000);
 
