@@ -33,7 +33,7 @@ function AuthModal(props) {
            <Input />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
+          <Button onClick={props.onHide} style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
