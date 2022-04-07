@@ -61,10 +61,13 @@
 .user-dropdown {
     min-height:32px;
     margin: 6px;
+}
+
+.user-dropdown:hover {
     border-radius: 6px;
     border: 2px solid var(--rereddit-light-dark);
-
 }
+
 .user-dropdown button {
     border: none;
     padding:6px;
@@ -75,10 +78,35 @@
     width: 32px;
     border-radius: 100%;
 }
-.user-dropdown i {
-    filter: invert(75%);
+.icon {
+    color: var(--rereddit-text-lighter);
     height: 32px;
     width: 32px;
+}
+
+.drop-menu {
+   position:absolute;
+   right:0;
+   border-radius: 0 0 6px 6px;;
+   border: solid 1px var(--rereddit-lighter-dark);
+   background-color: var(--rereddit-dark-brighter);
+   color: var(--rereddit-text-lighter);
+   overflow: hidden;
+}
+
+.menu-links {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    padding: 1rem 1rem 1rem 2rem;
+    position: relative;
+    color: var(--rereddit-text-lighter)
+}
+
+.menu-links:hover {
+    background-color: var(--rereddit-light-grey);
+    color: var(--rereddit-dark);
+    fill: var(--rereddit-dark);
 }
 
 #logo {

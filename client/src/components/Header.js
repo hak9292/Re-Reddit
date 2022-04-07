@@ -35,20 +35,35 @@ function Header() {
           {/* user dropdown */}
           <span className='user-dropdown'>
             <button className='bg-transparent'>
-              <div className='container d-inline-flex align-items-center'>
+              <div className='container d-inline-flex align-items-center px-0'>
                 <div className='col-6 p-1'>
                 {/* <i class="bi bi-person-circle"></i> */}
                 <img src={Avatar} className='default-avatar'/>
                 </div>
                 <div className='col-6 p-1'>
-                  <i class="bi bi-chevron-down"></i>
+                  <i class="bi bi-chevron-down icon"></i>
                 </div>
               </div>
-
             </button>
           </span>
         </div>
       </header>
+      <div>
+        <div className='drop-menu'>
+        <a href='' className='menu-links'> 
+          <i class="bi bi-box-arrow-right icon"></i> 
+          <div>
+            Test
+          </div>
+          </a>
+          <a href='' className='menu-links'> 
+          <i class="bi bi-box-arrow-right icon"></i> 
+          <div>
+            Log In / Sign Up
+          </div>
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
