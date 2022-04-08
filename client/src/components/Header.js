@@ -29,7 +29,7 @@ function Header() {
           <div className='d-flex w-100'>
             <form className='rereddit-search text-danger flex-grow-1 w-auto'>
               <div>
-                <i class="bi bi-search col-3"></i>
+                <i className="bi bi-search col-3"></i>
                 <input type="search" className='search-bar col-9' placeholder='Search ReReddit' />
               </div>
             </form>
@@ -52,7 +52,7 @@ function Header() {
                 <img src={Avatar} className='default-avatar'/>
                 </div>
                 <div className='col-6 p-1'>
-                  <i class="bi bi-chevron-down icon"></i>
+                  <i className="bi bi-chevron-down icon"></i>
                 </div>
               </div>
             </button>
@@ -62,13 +62,13 @@ function Header() {
       <div>
         <div className={'drop-menu ' + userDropdownVisibilityClass }>
         <a href='' className='menu-links'> 
-          <i class="bi bi-box-arrow-right icon"></i> 
+          <i className="bi bi-box-arrow-right icon"></i> 
           <div>
             Test
           </div>
           </a>
           <a href='' className='menu-links'> 
-          <i class="bi bi-box-arrow-right icon"></i> 
+          <i className="bi bi-box-arrow-right icon"></i> 
           <div>
             Log In / Sign Up
           </div>
