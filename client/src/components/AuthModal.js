@@ -75,7 +75,7 @@ function AuthModal(props) {
             )}
             {modalType === 'register' && (
               <Modal.Title className='modal-content' id="contained-modal-title-vcenter">
-                  Register
+                  Sign Up
               </Modal.Title>
             )}
           </Modal.Header>

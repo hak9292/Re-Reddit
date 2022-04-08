@@ -47,5 +47,19 @@ app.post('/register', (req, res) => {
     });
 });
 
+app.get('/user', (req, res) => {
+    const token = req.cookies.token;
+  
+    getUserFromToken(token)
+      .then(user => {
+        res.json({username:user.username});
+      })
+      .catch(err => {
+        console.log(err);
+        res.sendStatus(500);
+      });
+  
+  });
+
 app.listen(4000);
 
