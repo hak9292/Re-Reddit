@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ClickOutHandler from 'react-clickout-handler';
 import Logo from '../assets/reddit-logo-icon.png';
 import './Header.css';
 import Button from './Button';
+import AuthModal from './AuthModal';
 import Avatar from '../assets/default-avatar.webp';
+import AuthModalContext from './AuthModalContext';
+import UserContext from './UserContext';
 
 
 function Header() {
 
+  // show modal
+  const [modalShow, setModalShow] = React.useState(false);
   const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('d-none');
+  const [modalType, setModalType] = useState('login');
+  // const modalType = this.props.modalType
 
   function toggleUserDropdown() {
     if (userDropdownVisibilityClass === 'd-none') {
@@ -17,6 +24,9 @@ function Header() {
       setUserDropdownVisibilityClass('d-none')
     }
   }
+
+  const authModal = useContext(AuthModalContext);
+  const user = useContext(UserContext);
 
   return (
     <div >
@@ -38,10 +48,33 @@ function Header() {
           {/* Login/Signup Buttons */}
           <span className='d-md-inline-flex text-nowrap d-none'>
             <div className='col-6 px-1'>
-              <Button outline> Log In </Button>
+              {/* Connect with modal button on click, copied without onclick functionality */}
+              <Button outline variant="primary" 
+              onClick={() => {
+                authModal.setShow('login');
+                setModalShow(true);
+                }}
+                > 
+                Log In 
+                </Button>
+
+              {/* <Button outline variant="primary" > Log In </Button> */}
+              {/* hides authmodal */}
+              
+              <AuthModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              />
+
             </div>
             <div className='col-6 px-1'>
-              <Button> Sign Up </Button>
+              <Button onClick={() => {
+                authModal.setShow('register');
+                setModalShow(true);
+              }}
+              > 
+              Sign Up 
+              </Button>
             </div>      
           </span>
           {/* user dropdown */}
@@ -58,27 +91,20 @@ function Header() {
                   </div>
                 </div>
               </button>
+              <div>
+                <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                  <i className="bi bi-box-arrow-right icon py-2"></i> 
+                  <button style={{backgroundColor: '#1A1A1B', borderColor: '#1A1A1B', color: '#c2c7cad4'}} onClick={() => setModalShow(true)}>
+                      Log In / Sign Up
+                  </button> 
+                </div>
+              </div>
             </ClickOutHandler>
 
           </span>
         </div>
       </header>
-      <div>
-        <div className={'drop-menu ' + userDropdownVisibilityClass }>
-        <a href='' className='menu-links'> 
-          <i className="bi bi-box-arrow-right icon"></i> 
-          <div>
-            Test
-          </div>
-          </a>
-          <a href='' className='menu-links'> 
-          <i className="bi bi-box-arrow-right icon"></i> 
-          <div>
-            Log In / Sign Up
-          </div>
-          </a>
-        </div>
-      </div>
+
     </div>
   );
 }

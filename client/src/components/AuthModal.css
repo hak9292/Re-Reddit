@@ -1,0 +1,12 @@
+:root {
+    --rereddit-dark: #030303;
+    --rereddit-light-dark: #27272A;
+    --rereddit-lighter-dark: #3d3d3d;
+    --rereddit-light-grey: #BCC0C1;
+
+}
+
+.modal-content {
+    background-color: var(--rereddit-dark);
+    color: var(--rereddit-light-grey);
+}
