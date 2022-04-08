@@ -92,10 +92,12 @@
    background-color: var(--rereddit-dark-brighter);
    color: var(--rereddit-text-lighter);
    overflow: hidden;
+   z-index: 80; /* so that dropdown is always on top when expanded */
 }
 
 .menu-links {
     box-sizing: border-box;
+    font-size: 14px;
     cursor: pointer;
     display: flex;
     padding: 1rem 1rem 1rem 2rem;

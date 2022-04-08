@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from '../assets/reddit-logo-icon.png';
 import './Header.css';
 import Button from './Button';
@@ -6,6 +6,17 @@ import Avatar from '../assets/default-avatar.webp';
 
 
 function Header() {
+
+  const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('d-none');
+
+  function toggleUserDropdown() {
+    if (userDropdownVisibilityClass === 'd-none') {
+      setUserDropdownVisibilityClass('d-block')
+    } else {
+      setUserDropdownVisibilityClass('d-none')
+    }
+  }
+
   return (
     <div >
       <header>
@@ -34,7 +45,7 @@ function Header() {
           </span>
           {/* user dropdown */}
           <span className='user-dropdown'>
-            <button className='bg-transparent'>
+            <button className='bg-transparent' onClick={() => toggleUserDropdown()}>
               <div className='container d-inline-flex align-items-center px-0'>
                 <div className='col-6 p-1'>
                 {/* <i class="bi bi-person-circle"></i> */}
@@ -49,7 +60,7 @@ function Header() {
         </div>
       </header>
       <div>
-        <div className='drop-menu'>
+        <div className={'drop-menu ' + userDropdownVisibilityClass }>
         <a href='' className='menu-links'> 
           <i class="bi bi-box-arrow-right icon"></i> 
           <div>
