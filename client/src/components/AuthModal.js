@@ -4,9 +4,10 @@ import Button from 'react-bootstrap/Button';
 // import InputGroup from 'react-bootstrap/InputGroup';
 // import FormControl from 'react-bootstrap/FormControl';
 import Input from './Input';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
+import AuthModalContext from './AuthModalContext';
 
 // function AuthModal(props) {
 //     return (
@@ -25,13 +26,17 @@ function AuthModal(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const visibleClass = props.show ? 'block' : 'hidden';
+    
     // if (modalContext.show && modalContext.show !== modalType) {
     //   setModalType(modalContext.show);
     // }
 
     // const modalContext = useContext(AuthModalContext);
     // const user = useContext(UserContext);
+
+    const modalContext = useContext(AuthModalContext);
+
+    const visibleClass = modalContext.show ? 'block' : 'hidden';
 
     function register(e) {
       e.preventDefault();
