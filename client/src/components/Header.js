@@ -6,6 +6,7 @@ import Button from './Button';
 import AuthModal from './AuthModal';
 import Avatar from '../assets/default-avatar.webp';
 import AuthModalContext from './AuthModalContext';
+import UserContext from './UserContext';
 
 
 function Header() {
@@ -25,6 +26,7 @@ function Header() {
   }
 
   const authModal = useContext(AuthModalContext);
+  const user = useContext(UserContext);
 
   return (
     <div >

@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import AuthModalContext from './AuthModalContext';
 import ClickOutHandler from 'react-clickout-handler';
+import UserContext from './UserContext';
 
 
 // function AuthModal(props) {
@@ -37,6 +38,7 @@ function AuthModal(props) {
     // const user = useContext(UserContext);
 
     const modalContext = useContext(AuthModalContext);
+    const user = useContext(UserContext);
 
     const visibleClass = modalContext.show !== false ? 'block' : 'hidden';
 
@@ -48,14 +50,14 @@ function AuthModal(props) {
     function register(e) {
       e.preventDefault();
       const data = {email,username,password};
-      axios.post('http://localhost:4000/register', data, {withCredentials:true});
-        // .then(() => {
-        //   user.setUser({username});
-        //   modalContext.setShow(false);
-        //   setEmail('');
-        //   setPassword('');
-        //   setUsername('');
-        // });
+      axios.post('http://localhost:4000/register', data, {withCredentials:true})
+        .then(() => {
+          user.setUser({username});
+          modalContext.setShow(false);
+          setEmail('');
+          setPassword('');
+          setUsername('');
+        });
     }
 
     return (
@@ -113,12 +115,12 @@ function AuthModal(props) {
               {/* set state to 'register' if the sign up button is clicked */}
               {modalType === 'login' && (
                   <div>
-                    New to Reddit? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => setModalType('register')}  className='my-2'>Sign Up</Button>
+                    New to Reddit? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => modalContext.setShow('register')}  className='my-2'>Sign Up</Button>
                   </div>
               )}
                 {modalType === 'register' && (
                   <div>
-                    Already have an account? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => setModalType('login')}  className='my-2'>Log In</Button>
+                    Already have an account? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => modalContext.setShow('login')}  className='my-2'>Log In</Button>
                   </div>
               )}
 

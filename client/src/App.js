@@ -2,14 +2,31 @@ import React from 'react';
 import Header from './components/Header';
 import AuthModal from './components/AuthModal';
 import AuthModalContext from './components/AuthModalContext';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import SubHeader from './components/SubHeader';
 import PostForm from './components/PostForm';
+import axios from 'axios';
+import UserContext from './components/UserContext';
 
 function App() {
   const [showAuthModal,setShowAuthModal] = useState(false);
+  const [user,setUser] = useState();
+
+  useEffect(() => {
+
+    axios.get('http://localhost:4000/user', {withCredentials:true})
+      .then(response => setUser(response.data));
+
+  }, []);
+
+  function logout() {
+    axios.post('http://localhost:4000/logout', {}, {withCredentials:true})
+      .then(() => setUser({}));
+  }
+
   return (
     <AuthModalContext.Provider value={{show:showAuthModal, setShow:setShowAuthModal}}>
+      <UserContext.Provider value={{...user, logout, setUser}}>
       <Header />
       <AuthModal />
       <SubHeader />
@@ -34,6 +51,7 @@ function App() {
           </div>
         </div>
       </div>
+      </UserContext.Provider>
     </AuthModalContext.Provider>
   );
 }
