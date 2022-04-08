@@ -18,6 +18,11 @@ app.use(cors({
     credentials: true,
   }));
 
+function getUserFromToken(token) {
+  const userInfo = jwt.verify(token, secret);
+  return User.findById(userInfo.id);
+}
+
 await mongoose.connect('mongodb://localhost:27017/rereddit', {useNewUrlParser:true,useUnifiedTopology:true,});
 const db = mongoose.connection;
 db.on('error', console.log);
