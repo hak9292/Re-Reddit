@@ -49,8 +49,8 @@ function Header() {
               {/* Connect with modal button on click, copied without onclick functionality */}
               <Button outline variant="primary" 
               onClick={() => {
+                authModal.setShow('login');
                 setModalShow(true);
-                setModalType('login');
                 }}
                 > 
                 Log In 
@@ -66,7 +66,13 @@ function Header() {
 
             </div>
             <div className='col-6 px-1'>
-              <Button onClick={() => setModalShow(true)}> Sign Up </Button>
+              <Button onClick={() => {
+                authModal.setShow('register');
+                setModalShow(true);
+              }}
+              > 
+              Sign Up 
+              </Button>
             </div>      
           </span>
           {/* user dropdown */}

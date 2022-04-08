@@ -38,8 +38,12 @@ function AuthModal(props) {
 
     const modalContext = useContext(AuthModalContext);
 
-    const visibleClass = modalContext.show ? 'block' : 'hidden';
-    
+    const visibleClass = modalContext.show !== false ? 'block' : 'hidden';
+
+    // make state the same as setShow
+    if (modalContext.show && modalContext.show !== modalType) {
+      setModalType(modalContext.show);
+    }
 
     function register(e) {
       e.preventDefault();

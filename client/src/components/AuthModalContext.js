@@ -1,5 +1,5 @@
 import React from 'react';
 
-const AuthModalContext = React.createContext({});
+const AuthModalContext = React.createContext();
 
 export default AuthModalContext;
