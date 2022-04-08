@@ -11,6 +11,10 @@
     --rereddit-text-darker: #6f7071;
 }
 
+body {
+    background-color: var(--rereddit-dark);
+}
+
 .rereddit-header {
     align-items: center;
     background-color: var(--rereddit-dark);
@@ -61,6 +65,7 @@
 .user-dropdown {
     min-height:32px;
     margin: 6px;
+    
 }
 
 .user-dropdown:hover {
@@ -80,7 +85,6 @@
 }
 .icon {
     color: var(--rereddit-text-lighter);
-    height: 32px;
     width: 32px;
 }
 
@@ -95,17 +99,19 @@
    z-index: 80; /* so that dropdown is always on top when expanded */
 }
 
-.menu-links {
+.drop-menu button {
     box-sizing: border-box;
+    align-items: center;
     font-size: 14px;
     cursor: pointer;
     display: flex;
     padding: 1rem 1rem 1rem 2rem;
     position: relative;
-    color: var(--rereddit-text-lighter)
+    color: var(--rereddit-text-lighter);
+    background: transparent;
 }
 
-.menu-links:hover {
+.drop-menu button:hover {
     background-color: var(--rereddit-light-grey);
     color: var(--rereddit-dark);
     fill: var(--rereddit-dark);
