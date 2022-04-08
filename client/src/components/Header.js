@@ -36,7 +36,7 @@ function Header() {
             </form>
           </div>
           {/* Login/Signup Buttons */}
-          <span className='d-inline-flex text-nowrap'>
+          <span className='d-md-inline-flex text-nowrap d-none'>
             <div className='col-6 px-1'>
               <Button outline> Log In </Button>
             </div>
