@@ -6,10 +6,13 @@ import AuthModal from './AuthModal';
 import Avatar from '../assets/default-avatar.webp';
 
 
-function Header() {
+function Header(props) {
 
+  // show modal
   const [modalShow, setModalShow] = React.useState(false);
   const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('d-none');
+  const [modalType, setModalType] = useState('login');
+  // const modalType = this.props.modalType
 
   function toggleUserDropdown() {
     if (userDropdownVisibilityClass === 'd-none') {
@@ -39,9 +42,17 @@ function Header() {
           {/* Login/Signup Buttons */}
           <span className='d-inline-flex text-nowrap'>
             <div className='col-6 px-1'>
-              {/* Connect with modal button on click */}
-              <Button outline variant="primary" onClick={() => setModalShow(true)}> Log In </Button>
+              {/* Connect with modal button on click, copied without onclick functionality */}
+              <Button outline variant="primary" onClick={() => {
+                setModalShow(true);
+                setModalType('login');
+                }}> 
+                Log In 
+                </Button>
 
+              {/* <Button outline variant="primary" > Log In </Button> */}
+              {/* hides authmodal */}
+              
               <AuthModal
               show={modalShow}
               onHide={() => setModalShow(false)}

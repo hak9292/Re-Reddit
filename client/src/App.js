@@ -7,7 +7,7 @@ import SubHeader from './components/SubHeader';
 import PostForm from './components/PostForm';
 
 function App() {
-  const [showAuthModal,setShowAuthModal] = useState(false);
+  const [showAuthModal,setShowAuthModal] = useState(true);
   return (
     <AuthModalContext.Provider value={{show:showAuthModal, setShow:setShowAuthModal}}>
       <Header />
