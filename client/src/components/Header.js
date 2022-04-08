@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ClickOutHandler from 'react-clickout-handler';
 import Logo from '../assets/reddit-logo-icon.png';
 import './Header.css';
 import Button from './Button';
 import AuthModal from './AuthModal';
 import Avatar from '../assets/default-avatar.webp';
+import AuthModalContext from './AuthModalContext';
 
 
-function Header(props) {
+function Header() {
 
   // show modal
   const [modalShow, setModalShow] = React.useState(false);
@@ -22,6 +23,8 @@ function Header(props) {
       setUserDropdownVisibilityClass('d-none')
     }
   }
+
+  const authModal = useContext(AuthModalContext);
 
   return (
     <div >
@@ -44,10 +47,12 @@ function Header(props) {
           <span className='d-md-inline-flex text-nowrap d-none'>
             <div className='col-6 px-1'>
               {/* Connect with modal button on click, copied without onclick functionality */}
-              <Button outline variant="primary" onClick={() => {
+              <Button outline variant="primary" 
+              onClick={() => {
                 setModalShow(true);
                 setModalType('login');
-                }}> 
+                }}
+                > 
                 Log In 
                 </Button>
 
@@ -61,7 +66,7 @@ function Header(props) {
 
             </div>
             <div className='col-6 px-1'>
-              <Button> Sign Up </Button>
+              <Button onClick={() => setModalShow(true)}> Sign Up </Button>
             </div>      
           </span>
           {/* user dropdown */}
@@ -78,27 +83,20 @@ function Header(props) {
                   </div>
                 </div>
               </button>
+              <div>
+                <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                  <i className="bi bi-box-arrow-right icon py-2"></i> 
+                  <button style={{backgroundColor: '#1A1A1B', borderColor: '#1A1A1B', color: '#c2c7cad4'}} onClick={() => setModalShow(true)}>
+                      Log In / Sign Up
+                  </button> 
+                </div>
+              </div>
             </ClickOutHandler>
 
           </span>
         </div>
       </header>
-      <div>
-        <div className={'drop-menu ' + userDropdownVisibilityClass }>
-        <a href='' className='menu-links'> 
-          <i className="bi bi-box-arrow-right icon"></i> 
-          <div>
-            Test
-          </div>
-          </a>
-          <a href='' className='menu-links'> 
-          <i className="bi bi-box-arrow-right icon"></i> 
-          <div>
-            Log In / Sign Up
-          </div>
-          </a>
-        </div>
-      </div>
+
     </div>
   );
 }
