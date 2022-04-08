@@ -79,7 +79,7 @@ function Header() {
           </span>
           {/* user dropdown */}
           <span className='user-dropdown'>
-            <ClickOutHandler onClickOut={()=> toggleUserDropdown()}>
+            <ClickOutHandler onClickOut={()=> setUserDropdownVisibilityClass('d-none')}>
               <button className='bg-transparent' onClick={() => toggleUserDropdown()}>
                 <div className='container d-inline-flex align-items-center px-0'>
                   <div className='col-6 p-1'>
@@ -93,9 +93,8 @@ function Header() {
               </button>
               <div>
                 <div className={'drop-menu ' + userDropdownVisibilityClass }>
-                  <i className="bi bi-box-arrow-right icon py-2"></i> 
-                  <button style={{backgroundColor: '#1A1A1B', borderColor: '#1A1A1B', color: '#c2c7cad4'}} onClick={() => setModalShow(true)}>
-                      Log In / Sign Up
+                  <button onClick={() => setModalShow(true)}>
+                      <i className="bi bi-box-arrow-right icon py-2"></i> Log In / Sign Up
                   </button> 
                 </div>
               </div>
