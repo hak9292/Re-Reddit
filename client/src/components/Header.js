@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ClickOutHandler from 'react-clickout-handler';
 import Logo from '../assets/reddit-logo-icon.png';
 import './Header.css';
 import Button from './Button';
@@ -35,7 +36,7 @@ function Header() {
             </form>
           </div>
           {/* Login/Signup Buttons */}
-          <span className='d-inline-flex text-nowrap'>
+          <span className='d-md-inline-flex text-nowrap d-none'>
             <div className='col-6 px-1'>
               <Button outline> Log In </Button>
             </div>
@@ -45,17 +46,20 @@ function Header() {
           </span>
           {/* user dropdown */}
           <span className='user-dropdown'>
-            <button className='bg-transparent' onClick={() => toggleUserDropdown()}>
-              <div className='container d-inline-flex align-items-center px-0'>
-                <div className='col-6 p-1'>
-                {/* <i class="bi bi-person-circle"></i> */}
-                <img src={Avatar} className='default-avatar'/>
+            <ClickOutHandler onClickOut={()=> toggleUserDropdown()}>
+              <button className='bg-transparent' onClick={() => toggleUserDropdown()}>
+                <div className='container d-inline-flex align-items-center px-0'>
+                  <div className='col-6 p-1'>
+                    {/* <i className="bi bi-person-circle"></i> */}
+                    <img src={Avatar} className='default-avatar'/>
+                  </div>
+                  <div className='col-6 p-1'>
+                    <i className="bi bi-chevron-down icon"></i>
+                  </div>
                 </div>
-                <div className='col-6 p-1'>
-                  <i className="bi bi-chevron-down icon"></i>
-                </div>
-              </div>
-            </button>
+              </button>
+            </ClickOutHandler>
+
           </span>
         </div>
       </header>
