@@ -7,6 +7,17 @@ import AuthModal from './AuthModal';
 import Avatar from '../assets/default-avatar.webp';
 import AuthModalContext from './AuthModalContext';
 import UserContext from './UserContext';
+import 'font-awesome/css/font-awesome.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import {
+  BellIcon,
+  ChatIcon,
+  LoginIcon,
+  LogoutIcon,
+  PlusIcon,
+  UserIcon
+} from "@heroicons/react/outline";
 
 
 function Header() {
@@ -45,6 +56,22 @@ function Header() {
               </div>
             </form>
           </div>
+
+          {user.username && (
+          <div className='d-md-inline-flex text-nowrap d-none'>
+            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}} >
+              <ChatIcon className="icon-user" />
+            </Button>
+            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}}>
+              <BellIcon  className="icon-user"/>
+            </Button>
+            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}}>
+              <PlusIcon  className="icon-user"/>
+            </Button>
+          </div>   
+
+        )}
+
           {/* Login/Signup Buttons */}
           <span className='d-md-inline-flex text-nowrap d-none'>
             <div className='col-6 px-1'>
@@ -83,8 +110,13 @@ function Header() {
               <button className='bg-transparent' onClick={() => toggleUserDropdown()}>
                 <div className='container d-inline-flex align-items-center px-0'>
                   <div className='col-6 p-1'>
-                    {/* <i className="bi bi-person-circle"></i> */}
-                    <img src={Avatar} className='default-avatar'/>
+                    {!user.username && (
+                      // can't get this to work
+                      <FontAwesomeIcon icon="fa-solid fa-user-large" className='default-avatar' />
+                      )}
+                    {user.username && (
+                      <img src={Avatar} className='default-avatar'/>
+                    )}
                   </div>
                   <div className='col-6 p-1'>
                     <i className="bi bi-chevron-down icon"></i>

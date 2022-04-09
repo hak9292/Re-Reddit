@@ -52,6 +52,7 @@ app.post('/register', (req, res) => {
     });
 });
 
+
 app.get('/user', (req, res) => {
     const token = req.cookies.token;
   
@@ -65,6 +66,9 @@ app.get('/user', (req, res) => {
       });
   
   });
+
+
+
 
 app.post('/login', (req, res) => {
   const {username, password} = req.body;

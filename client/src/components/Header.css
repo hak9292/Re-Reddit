@@ -88,6 +88,18 @@ body {
     width: 32px;
 }
 
+.icon-user {
+    color: var(--rereddit-text-lighter);
+    background-color: #030303;
+    width: 32px;
+}
+
+.custom-btn {
+    background-color: #030303 !important;
+    border-color: #030303 !important;
+    color: #030303 ;
+  }
+
 .drop-menu {
    position:absolute;
    right:0;
