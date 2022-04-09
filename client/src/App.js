@@ -2,37 +2,51 @@ import React from 'react';
 import Header from './components/Header';
 import AuthModal from './components/AuthModal';
 import AuthModalContext from './components/AuthModalContext';
-import {useState, useEffect} from 'react';
-import SubHeader from './components/SubHeader';
-import PostForm from './components/PostForm';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserContext from './components/UserContext';
+import CommentPage from './components/CommentPage';
+import {
+  Routes,
+  Route,
+  BrowserRouter as Router
+} from "react-router-dom";
+import Board from './components/Board';
 
 function App() {
-  const [showAuthModal,setShowAuthModal] = useState(false);
-  const [user,setUser] = useState();
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [user, setUser] = useState({});
+
 
   useEffect(() => {
 
-    axios.get('http://localhost:4000/user', {withCredentials:true})
+    axios.get(' http://localhost:4000/user', { withCredentials: true })
       .then(response => setUser(response.data));
+
+
 
   }, []);
 
   function logout() {
-    axios.post('http://localhost:4000/logout', {}, {withCredentials:true})
+    axios.post('http://localhost:4000/logout', {}, { withCredentials: true })
       .then(() => setUser({}));
   }
 
   return (
-    <AuthModalContext.Provider value={{show:showAuthModal, setShow:setShowAuthModal}}>
-      <UserContext.Provider value={{...user, logout, setUser}}>
-      <Header />
-      <AuthModal />
-      <SubHeader />
-      <PostForm />
+    <AuthModalContext.Provider value={{ show: showAuthModal, setShow: setShowAuthModal }}>
+      <UserContext.Provider value={{ ...user, logout, setUser }}>
+        <Header />
+        <Router>
+          <Routes>
+          {/* Homepage component */}
+            <Route path="/" component={Board} />
+            {/* <Route path="/comments/:id" component={CommentPage}/> */}
+          </Routes>
+        </Router>
+        <AuthModal />
 
-      <div className='post-area h-100'>
+
+        {/* <div className='post-area h-100'>
         <div className='post-container'>
           <div className=''>
             <div className='post-author'>
@@ -50,7 +64,7 @@ function App() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       </UserContext.Provider>
     </AuthModalContext.Provider>
   );
