@@ -20,12 +20,8 @@ function AuthModal(props) {
     const [password, setPassword] = useState('');
 
     
-    // if (modalContext.show && modalContext.show !== modalType) {
-    //   setModalType(modalContext.show);
-    // }
 
-    // const modalContext = useContext(AuthModalContext);
-    // const user = useContext(UserContext);
+    
 
     const modalContext = useContext(AuthModalContext);
     const user = useContext(UserContext);
