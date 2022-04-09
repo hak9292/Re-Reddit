@@ -8,13 +8,9 @@ import Avatar from '../assets/default-avatar.webp';
 import AuthModalContext from './AuthModalContext';
 import UserContext from './UserContext';
 import 'font-awesome/css/font-awesome.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import {
   BellIcon,
   ChatIcon,
-  LoginIcon,
-  LogoutIcon,
   PlusIcon,
   UserIcon
 } from "@heroicons/react/outline";
@@ -72,9 +68,9 @@ function Header() {
 
         )}
 
-          {/* Login/Signup Buttons */}
-          <span className='d-md-inline-flex text-nowrap d-none'>
-            <div className='col-6 px-1'>
+        {!user.username && (
+          /* Login/Signup Buttons */
+            <div className='d-md-inline-flex text-nowrap d-none col-6 px-1'>
               {/* Connect with modal button on click, copied without onclick functionality */}
               <Button outline variant="primary" 
               onClick={() => {
@@ -83,27 +79,24 @@ function Header() {
                 }}
                 > 
                 Log In 
-                </Button>
+              </Button>
 
-              {/* <Button outline variant="primary" > Log In </Button> */}
-              {/* hides authmodal */}
-              
-              <AuthModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              />
-
-            </div>
-            <div className='col-6 px-1'>
-              <Button onClick={() => {
+                <Button onClick={() => {
                 authModal.setShow('register');
                 setModalShow(true);
               }}
               > 
               Sign Up 
               </Button>
+
             </div>      
-          </span>
+        )}
+
+        <AuthModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+
           {/* user dropdown */}
           <span className='user-dropdown'>
             <ClickOutHandler onClickOut={()=> setUserDropdownVisibilityClass('d-none')}>
@@ -111,8 +104,7 @@ function Header() {
                 <div className='container d-inline-flex align-items-center px-0'>
                   <div className='col-6 p-1'>
                     {!user.username && (
-                      // can't get this to work
-                      <FontAwesomeIcon icon="fa-solid fa-user-large" className='default-avatar' />
+                      <UserIcon className="icon-user" />
                       )}
                     {user.username && (
                       <img src={Avatar} className='default-avatar'/>
@@ -124,11 +116,23 @@ function Header() {
                 </div>
               </button>
               <div>
-                <div className={'drop-menu ' + userDropdownVisibilityClass }>
-                  <button onClick={() => setModalShow(true)}>
-                      <i className="bi bi-box-arrow-right icon py-2"></i> Log In / Sign Up
-                  </button> 
-                </div>
+                {/* Prompt this screen if logged out */}
+                {!user.username && (
+                  <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                    <button onClick={() => setModalShow(true)}>
+                        <i className="bi bi-box-arrow-left icon py-2"></i> Log In / Sign Up
+                    </button> 
+                  </div>
+                )}
+
+                {user.username && (
+                  <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                    <button onClick={() => user.logout()}>
+                        <i className="bi bi-box-arrow-right icon py-2"></i> Log Out
+                    </button> 
+                  </div>
+                )}
+
               </div>
             </ClickOutHandler>
 
