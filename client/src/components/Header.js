@@ -81,7 +81,7 @@ function Header() {
                 Log In 
               </Button>
 
-                <Button onClick={() => {
+              <Button onClick={() => {
                 authModal.setShow('register');
                 setModalShow(true);
               }}
@@ -92,9 +92,11 @@ function Header() {
             </div>      
         )}
 
+        
         <AuthModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          setModalShow={setModalShow}
         />
 
           {/* user dropdown */}
