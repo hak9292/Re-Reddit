@@ -7,6 +7,13 @@ import AuthModal from './AuthModal';
 import Avatar from '../assets/default-avatar.webp';
 import AuthModalContext from './AuthModalContext';
 import UserContext from './UserContext';
+import 'font-awesome/css/font-awesome.min.css';
+import {
+  BellIcon,
+  ChatIcon,
+  PlusIcon,
+  UserIcon
+} from "@heroicons/react/outline";
 
 
 function Header() {
@@ -45,9 +52,25 @@ function Header() {
               </div>
             </form>
           </div>
-          {/* Login/Signup Buttons */}
-          <span className='d-md-inline-flex text-nowrap d-none'>
-            <div className='col-6 px-1'>
+
+          {user.username && (
+          <div className='d-md-inline-flex text-nowrap d-none'>
+            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}} >
+              <ChatIcon className="icon-user" />
+            </Button>
+            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}}>
+              <BellIcon  className="icon-user"/>
+            </Button>
+            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}}>
+              <PlusIcon  className="icon-user"/>
+            </Button>
+          </div>   
+
+        )}
+
+        {!user.username && (
+          /* Login/Signup Buttons */
+            <div className='d-md-inline-flex text-nowrap d-none col-6 px-1'>
               {/* Connect with modal button on click, copied without onclick functionality */}
               <Button outline variant="primary" 
               onClick={() => {
@@ -56,35 +79,36 @@ function Header() {
                 }}
                 > 
                 Log In 
-                </Button>
+              </Button>
 
-              {/* <Button outline variant="primary" > Log In </Button> */}
-              {/* hides authmodal */}
-              
-              <AuthModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              />
-
-            </div>
-            <div className='col-6 px-1'>
-              <Button onClick={() => {
+                <Button onClick={() => {
                 authModal.setShow('register');
                 setModalShow(true);
               }}
               > 
               Sign Up 
               </Button>
+
             </div>      
-          </span>
+        )}
+
+        <AuthModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+
           {/* user dropdown */}
           <span className='user-dropdown'>
             <ClickOutHandler onClickOut={()=> setUserDropdownVisibilityClass('d-none')}>
               <button className='bg-transparent' onClick={() => toggleUserDropdown()}>
                 <div className='container d-inline-flex align-items-center px-0'>
                   <div className='col-6 p-1'>
-                    {/* <i className="bi bi-person-circle"></i> */}
-                    <img src={Avatar} className='default-avatar'/>
+                    {!user.username && (
+                      <UserIcon className="icon-user" />
+                      )}
+                    {user.username && (
+                      <img src={Avatar} className='default-avatar'/>
+                    )}
                   </div>
                   <div className='col-6 p-1'>
                     <i className="bi bi-chevron-down icon"></i>
@@ -92,11 +116,23 @@ function Header() {
                 </div>
               </button>
               <div>
-                <div className={'drop-menu ' + userDropdownVisibilityClass }>
-                  <button onClick={() => setModalShow(true)}>
-                      <i className="bi bi-box-arrow-right icon py-2"></i> Log In / Sign Up
-                  </button> 
-                </div>
+                {/* Prompt this screen if logged out */}
+                {!user.username && (
+                  <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                    <button onClick={() => setModalShow(true)}>
+                        <i className="bi bi-box-arrow-left icon py-2"></i> Log In / Sign Up
+                    </button> 
+                  </div>
+                )}
+
+                {user.username && (
+                  <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                    <button onClick={() => user.logout()}>
+                        <i className="bi bi-box-arrow-right icon py-2"></i> Log Out
+                    </button> 
+                  </div>
+                )}
+
               </div>
             </ClickOutHandler>
 

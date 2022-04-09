@@ -12,16 +12,6 @@ import ClickOutHandler from 'react-clickout-handler';
 import UserContext from './UserContext';
 
 
-// function AuthModal(props) {
-//     return (
-//         <div className='w-screen h-screen absolute top-0 left-0 z-20 flex' style={{backgroundColor: 'rgba(0,0,0,.6)'}}>
-//             <div className='modal-content p-5 mx-4 flex self-center'>
-//                 MODAL CONTENT
-//             </div>
-//         </div>
-//     )
-// }
-
 
 function AuthModal(props) {
     const [modalType, setModalType] = useState('login');
@@ -30,12 +20,8 @@ function AuthModal(props) {
     const [password, setPassword] = useState('');
 
     
-    // if (modalContext.show && modalContext.show !== modalType) {
-    //   setModalType(modalContext.show);
-    // }
 
-    // const modalContext = useContext(AuthModalContext);
-    // const user = useContext(UserContext);
+    
 
     const modalContext = useContext(AuthModalContext);
     const user = useContext(UserContext);
@@ -58,6 +44,15 @@ function AuthModal(props) {
           setPassword('');
           setUsername('');
         });
+    }
+
+    function login() {
+      const data = {username,password};
+      axios.post('http://localhost:4000/login', data, {withCredentials:true})
+      .then(() => {
+        modalContext.setShow(false);
+        user.setUser({username})
+      });
     }
 
     return (
@@ -101,7 +96,7 @@ function AuthModal(props) {
               </Form.Group>
 
               {modalType === "login" && (
-                <Button variant="primary" type="submit" className='btn-block' style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}}>
+                <Button variant="primary" type="submit" className='btn-block' style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}} onClick={() =>login()}>
                   Log In
                 </Button>
               )}

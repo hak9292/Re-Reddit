@@ -10,7 +10,10 @@ import UserContext from './components/UserContext';
 
 function App() {
   const [showAuthModal,setShowAuthModal] = useState(false);
+
   const [user,setUser] = useState();
+
+
 
   useEffect(() => {
 
