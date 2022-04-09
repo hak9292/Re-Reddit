@@ -18,7 +18,6 @@ function AuthModal(props) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     
 
     
@@ -39,7 +38,7 @@ function AuthModal(props) {
       axios.post('http://localhost:4000/register', data, {withCredentials:true})
         .then(() => {
           user.setUser({username});
-          modalContext.setShow(false);
+          props.setModalShow(false);
           setEmail('');
           setPassword('');
           setUsername('');
@@ -50,7 +49,7 @@ function AuthModal(props) {
       const data = {username,password};
       axios.post('http://localhost:4000/login', data, {withCredentials:true})
       .then(() => {
-        modalContext.setShow(false);
+        props.setModalShow(false);
         user.setUser({username})
       });
     }
