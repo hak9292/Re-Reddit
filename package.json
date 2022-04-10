@@ -1,21 +1,28 @@
 {
   "name": "re-reddit",
   "version": "1.0.0",
-  "description": "deploye re-reddit to heroku",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd server node server.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "node server.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build-production"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hak9292/Re-Reddit.git"
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.10",
+    "path": "^0.12.7"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hak9292/Re-Reddit/issues"
+  "engines": {
+    "node": "16.13.1"
   },
-  "homepage": "https://github.com/hak9292/Re-Reddit#readme"
+  "proxy": "http://localhost:4000"
 }

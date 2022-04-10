@@ -6,10 +6,11 @@ import cors from 'cors';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from './models/User.js';
+import path from 'path';
 
 
-const secret = 'secret123';
-const path = require('path');
+// const secret = 'secret123';
+// const path = path();
 const app = express();
 
 const PORT = process.env.PORT || 4000;
@@ -18,12 +19,12 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  }));
+  origin: ['http://localhost:3000', 'https://re-reddit-app.herokuapp.com/'],
+  credentials: true,
+}));
 
 function getUserFromToken(token) {
-  const userInfo = jwt.verify(token, secret);
+  const userInfo = jwt.verify(token, process.env.SECRET);
   return User.findById(userInfo.id);
 }
 
@@ -31,10 +32,11 @@ await mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/re
 const db = mongoose.connection;
 db.on('error', console.log);
 
-
+if (process.env.NODE_ENV !== 'production') {
 app.get('/', (req, res) => {
     res.send('ok');
   });
+}
 
 app.post('/register', (req, res) => {
     const {email,username} = req.body;
@@ -42,7 +44,7 @@ app.post('/register', (req, res) => {
     const password = bcrypt.hashSync(req.body.password, 10);
     const user = new User({email,username,password});
     user.save().then(user => {
-        jwt.sign({id:user._id}, secret, (err, token) => {
+        jwt.sign({id:user._id}, process.env.SECRET, (err, token) => {
         if (err) {
             console.log(err);
             res.sendStatus(500);
@@ -80,7 +82,7 @@ app.post('/login', (req, res) => {
     if (user && user.username) {
       const passOk = bcrypt.compareSync(password, user.password);
       if (passOk) {
-        jwt.sign({id:user._id}, secret, (err, token) => {
+        jwt.sign({id:user._id}, process.env.SECRET, (err, token) => {
           res.cookie('token', token).send();
         });
       } else {
@@ -97,14 +99,18 @@ app.post('/logout', (req, res) => {
 });
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static( '../client/build' ));
+  app.use(express.static( 'client/build' ));
+
+  app.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+  });
 
   app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html')); // relative path
-  });
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+});
 }
 
 app.listen(PORT, () => {
-  log(`Server is starting at PORT: ${PORT}`);
+  console.log(`Server is starting at PORT: ${PORT}`);
 });
 
