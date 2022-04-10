@@ -9,7 +9,11 @@ import User from './models/User.js';
 
 
 const secret = 'secret123';
+const path = require('path');
 const app = express();
+
+const PORT = process.env.PORT || 4000;
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -23,7 +27,7 @@ function getUserFromToken(token) {
   return User.findById(userInfo.id);
 }
 
-await mongoose.connect('mongodb://localhost:27017/rereddit', {useNewUrlParser:true,useUnifiedTopology:true,});
+await mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/rereddit', {useNewUrlParser:true,useUnifiedTopology:true,});
 const db = mongoose.connection;
 db.on('error', console.log);
 
@@ -92,5 +96,15 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').send();
 });
 
-app.listen(4000);
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static( '../client/build' ));
+
+  app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html')); // relative path
+  });
+}
+
+app.listen(PORT, () => {
+  log(`Server is starting at PORT: ${PORT}`);
+});
 
