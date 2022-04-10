@@ -8,7 +8,8 @@ function Board() {
     <SubHeader />
     <PostForm />
     <PostsListing />
-  </div>);
+  </div>
+  );
 }
 
 export default Board;
