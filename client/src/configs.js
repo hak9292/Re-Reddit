@@ -3,7 +3,7 @@ const configs = {
       SERVER_URI: 'http://localhost:4000',
     },
     production: {
-      SERVER_URI: 'https://re-reddit-app.herokuapp.com/',
+      SERVER_URI: 'https://re-reddit-app.herokuapp.com',
     },
   };
   
