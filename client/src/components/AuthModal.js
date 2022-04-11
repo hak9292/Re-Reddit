@@ -36,6 +36,7 @@ function AuthModal(props) {
     function register(e) {
       e.preventDefault();
       const data = {email,username,password};
+      console.log(process.env.SECRET)
       axios.post(`${config.SERVER_URI}/register`, data, {withCredentials:true})
         .then(() => {
           user.setUser({username});

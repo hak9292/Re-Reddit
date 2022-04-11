@@ -7,6 +7,7 @@ import SubHeader from './components/SubHeader';
 import PostForm from './components/PostForm';
 import axios from 'axios';
 import UserContext from './components/UserContext';
+import config from './configs';
 
 function App() {
   const [showAuthModal,setShowAuthModal] = useState(false);
@@ -17,13 +18,13 @@ function App() {
 
   useEffect(() => {
 
-    axios.get('http://localhost:4000/user', {withCredentials:true})
+    axios.get(`${config.SERVER_URI}/user`, {withCredentials:true})
       .then(response => setUser(response.data));
 
   }, []);
 
   function logout() {
-    axios.post('http://localhost:4000/logout', {}, {withCredentials:true})
+    axios.post(`${config.SERVER_URI}/logout`, {}, {withCredentials:true})
       .then(() => setUser({}));
   }
 

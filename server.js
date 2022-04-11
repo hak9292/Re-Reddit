@@ -6,7 +6,9 @@ import cors from 'cors';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from './models/User.js';
-import path from 'path';
+import 'dotenv/config';
+
+
 
 
 // const secret = 'secret123';
@@ -14,6 +16,8 @@ import path from 'path';
 const app = express();
 
 const PORT = process.env.PORT || 4000;
+
+const secret = process.env.SECRET;
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -44,7 +48,7 @@ app.post('/register', (req, res) => {
     const password = bcrypt.hashSync(req.body.password, 10);
     const user = new User({email,username,password});
     user.save().then(user => {
-        jwt.sign({id:user._id}, process.env.SECRET, (err, token) => {
+        jwt.sign({id:user._id}, secret, (err, token) => {
         if (err) {
             console.log(err);
             res.sendStatus(500);
@@ -82,7 +86,7 @@ app.post('/login', (req, res) => {
     if (user && user.username) {
       const passOk = bcrypt.compareSync(password, user.password);
       if (passOk) {
-        jwt.sign({id:user._id}, process.env.SECRET, (err, token) => {
+        jwt.sign({id:user._id}, secret, (err, token) => {
           res.cookie('token', token).send();
         });
       } else {
