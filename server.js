@@ -6,31 +6,41 @@ import cors from 'cors';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from './models/User.js';
+import 'dotenv/config';
 
 
-const secret = 'secret123';
+
+
+// const secret = 'secret123';
+// const path = path();
 const app = express();
+
+const PORT = process.env.PORT || 4000;
+
+const secret = process.env.SECRET;
+
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
-  }));
+  origin: ['http://localhost:3000', 'https://re-reddit-app.herokuapp.com/'],
+  credentials: true,
+}));
 
 function getUserFromToken(token) {
-  const userInfo = jwt.verify(token, secret);
+  const userInfo = jwt.verify(token, process.env.SECRET);
   return User.findById(userInfo.id);
 }
 
-await mongoose.connect('mongodb://localhost:27017/rereddit', {useNewUrlParser:true,useUnifiedTopology:true,});
+await mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/rereddit', {useNewUrlParser:true,useUnifiedTopology:true,});
 const db = mongoose.connection;
 db.on('error', console.log);
 
-
+if (process.env.NODE_ENV !== 'production') {
 app.get('/', (req, res) => {
     res.send('ok');
   });
+}
 
 app.post('/register', (req, res) => {
     const {email,username} = req.body;
@@ -92,5 +102,19 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').send();
 });
 
-app.listen(4000);
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static( 'client/build' ));
+
+  app.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+  });
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+});
+}
+
+app.listen(PORT, () => {
+  console.log(`Server is starting at PORT: ${PORT}`);
+});
 
