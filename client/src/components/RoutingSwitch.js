@@ -1,8 +1,7 @@
 import Board from "./Board";
 import CommentPage from "./CommentPage";
-import PostModal from "./PostModal";
+import PostModal from "./CommentModal";
 import {
-    BrowserRouter as Router,
     Route,
     Switch,
     useLocation
