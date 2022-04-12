@@ -103,7 +103,6 @@ app.get('/comments/:id', (req, res) => {
   .then(comment => {
     res.json(comment);
   });
-  // res.json(req);
 });
 
 app.listen(4000);
