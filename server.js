@@ -6,8 +6,9 @@ import cors from 'cors';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from './models/User.js';
+import Comment from './models/Comment.js';
 import 'dotenv/config';
-
+// d
 
 
 
@@ -113,7 +114,20 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
 });
 }
+app.get('/comments', (req, res) => {
+  Comment.find()
+  .then(comments => {
+    res.json(comments);
+  });
+});
 
+app.get('/comments/:id', (req, res) => {
+  Comment.findById(req.params.id)
+  .then(comment => {
+    res.json(comment);
+  });
+  // res.json(req);
+});
 app.listen(PORT, () => {
   console.log(`Server is starting at PORT: ${PORT}`);
 });
