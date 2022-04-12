@@ -14,7 +14,7 @@ import {
   PlusIcon,
   UserIcon
 } from "@heroicons/react/outline";
-
+import {Link} from 'react-router-dom';
 
 function Header() {
 
@@ -40,8 +40,10 @@ function Header() {
       <header>
         <div className='rereddit-header d-inline-flex justify-content-between'>
          {/* logo */}
-         <div>  
+         <div>
+         <Link to="/">
             <img src={Logo} alt="rereddit logo" className='rereddit-logo m-2'/>
+            </Link>
           </div>
           {/* search box */}
           <div className='d-flex w-100'>

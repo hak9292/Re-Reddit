@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.css';
 import Avatar from '../assets/default-avatar.webp';
 
-function Post() {
+function PostForm() {
     return (
         <div className='post-area'>
             <div className='create-post'>
@@ -19,4 +19,4 @@ function Post() {
     )
 }
 
-export default Post;
+export default PostForm;
