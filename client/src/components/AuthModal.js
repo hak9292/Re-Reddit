@@ -10,6 +10,7 @@ import axios from 'axios';
 import AuthModalContext from './AuthModalContext';
 import ClickOutHandler from 'react-clickout-handler';
 import UserContext from './UserContext';
+import config from '../configs';
 
 
 
@@ -18,7 +19,6 @@ function AuthModal(props) {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     
 
     
@@ -36,10 +36,11 @@ function AuthModal(props) {
     function register(e) {
       e.preventDefault();
       const data = {email,username,password};
-      axios.post('http://localhost:4000/register', data, {withCredentials:true})
+      console.log(process.env.SECRET)
+      axios.post(`${config.SERVER_URI}/register`, data, {withCredentials:true})
         .then(() => {
           user.setUser({username});
-          modalContext.setShow(false);
+          props.setModalShow(false);
           setEmail('');
           setPassword('');
           setUsername('');
@@ -48,9 +49,11 @@ function AuthModal(props) {
 
     function login() {
       const data = {username,password};
-      axios.post('http://localhost:4000/login', data, {withCredentials:true})
+      console.log(process.env)
+      console.log(config)
+      axios.post(`${config.SERVER_URI}/login`, data, {withCredentials:true})
       .then(() => {
-        modalContext.setShow(false);
+        props.setModalShow(false);
         user.setUser({username})
       });
     }

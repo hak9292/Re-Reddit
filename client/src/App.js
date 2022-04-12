@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import UserContext from './components/UserContext';
 import Routing from './components/Routing'
-
+import config from './configs';
 
 function App() {
   const [showAuthModal,setShowAuthModal] = useState(false);
@@ -13,12 +13,20 @@ function App() {
 
   useEffect(() => {
 
-    axios.get(' http://localhost:4000/user', { withCredentials: true })
+
+//     axios.get(' http://localhost:4000/user', { withCredentials: true })
+
+    axios.get(`${config.SERVER_URI}/user`, {withCredentials:true})
+
       .then(response => setUser(response.data));
   }, []);
 
   function logout() {
-    axios.post('http://localhost:4000/logout', {}, { withCredentials: true })
+
+//     axios.post('http://localhost:4000/logout', {}, { withCredentials: true })
+
+    axios.post(`${config.SERVER_URI}/logout`, {}, {withCredentials:true})
+
       .then(() => setUser({}));
   }
 

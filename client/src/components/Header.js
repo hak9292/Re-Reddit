@@ -83,7 +83,7 @@ function Header() {
                 Log In 
               </Button>
 
-                <Button onClick={() => {
+              <Button onClick={() => {
                 authModal.setShow('register');
                 setModalShow(true);
               }}
@@ -94,9 +94,11 @@ function Header() {
             </div>      
         )}
 
+        
         <AuthModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          setModalShow={setModalShow}
         />
 
           {/* user dropdown */}
@@ -118,6 +120,7 @@ function Header() {
                 </div>
               </button>
               <div>
+
                 {/* Prompt this screen if logged out */}
                 {!user.username && (
                   <div className={'drop-menu ' + userDropdownVisibilityClass }>
@@ -129,6 +132,9 @@ function Header() {
 
                 {user.username && (
                   <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                    <div className='mx-5 my-2'>
+                      Welcome, {user.username}!
+                    </div>
                     <button onClick={() => user.logout()}>
                         <i className="bi bi-box-arrow-right icon py-2"></i> Log Out
                     </button> 
