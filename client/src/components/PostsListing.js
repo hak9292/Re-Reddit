@@ -1,6 +1,7 @@
 import Post from './Post';
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import config from '../configs'
 
 
 function PostsListing() {
@@ -8,7 +9,7 @@ function PostsListing() {
   const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/comments', {
+    axios.get(`${config.SERVER_URI}/comments`, {
       withCredentials: true
     })
       .then(response => setComments(response.data));

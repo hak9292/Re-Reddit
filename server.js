@@ -33,7 +33,7 @@ function getUserFromToken(token) {
   return User.findById(userInfo.id);
 }
 
-await mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/rereddit', {useNewUrlParser:true,useUnifiedTopology:true,});
+await mongoose.connect('mongodb://localhost:27017/rereddit' || process.env.MONGODB_URI , {useNewUrlParser:true,useUnifiedTopology:true,});
 const db = mongoose.connection;
 db.on('error', console.log);
 
@@ -118,6 +118,10 @@ app.get('/comments', (req, res) => {
   Comment.find()
   .then(comments => {
     res.json(comments);
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500);
   });
 });
 
@@ -125,6 +129,10 @@ app.get('/comments/:id', (req, res) => {
   Comment.findById(req.params.id)
   .then(comment => {
     res.json(comment);
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500);
   });
   // res.json(req);
 });

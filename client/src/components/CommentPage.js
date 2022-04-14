@@ -2,6 +2,8 @@
 import {useState,useEffect} from "react";
 import axios from "axios";
 import Post from './Post'
+import config from '../configs'
+
 
 function CommentPage(props) {
 
@@ -9,7 +11,7 @@ function CommentPage(props) {
   const [ comment, setComment ] = useState({});
 
   useEffect(() => {
-    axios.get('http://localhost:4000/comments/'+commentId)
+    axios.get(`${config.SERVER_URI}/comments/`+commentId)
     .then(response => setComment(response.data));
   }, []);
 
