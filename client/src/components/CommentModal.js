@@ -5,12 +5,15 @@ import AuthModalContext from './AuthModalContext';
 import { useState, useEffect } from 'react';
 import PostContent from './Post';
 import axios from 'axios';
+import config from '../configs';
+
 function CommentModal(props) {
     // const commentId = props.match.params.id;
     const [ comment, setComment ] = useState({});
   
     useEffect(() => {
-      axios.get('http://localhost:4000/comments/'+props.id)
+        console.log(config.SERVER_URI);
+      axios.get(`${config.SERVER_URI}/comments/`+props.id)
       .then(response => setComment(response.data));
     }, []);
     // const visibleClass = 'block';
