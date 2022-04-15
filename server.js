@@ -8,7 +8,8 @@ import jwt from 'jsonwebtoken';
 import User from './models/User.js';
 import Comment from './models/Comment.js';
 import 'dotenv/config';
-// d
+import 'path';
+
 
 
 
@@ -33,7 +34,7 @@ function getUserFromToken(token) {
   return User.findById(userInfo.id);
 }
 
-await mongoose.connect('mongodb://localhost:27017/rereddit' || process.env.MONGODB_URI , {useNewUrlParser:true,useUnifiedTopology:true,});
+await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rereddit' , {useNewUrlParser:true,useUnifiedTopology:true,});
 const db = mongoose.connection;
 db.on('error', console.log);
 
@@ -103,17 +104,7 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').send();
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static( 'client/build' ));
 
-  app.get('/', (req, res) => {
-      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
-  });
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
-});
-}
 app.get('/comments', (req, res) => {
   Comment.find()
   .then(comments => {
@@ -136,6 +127,20 @@ app.get('/comments/:id', (req, res) => {
   });
   // res.json(req);
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static( 'client/build' ));
+
+  app.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+  });
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+});
+}
+
 app.listen(PORT, () => {
   console.log(`Server is starting at PORT: ${PORT}`);
 });
