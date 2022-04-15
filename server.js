@@ -34,7 +34,7 @@ function getUserFromToken(token) {
   return User.findById(userInfo.id);
 }
 
-await mongoose.connect('mongodb://localhost:27017/rereddit' || process.env.MONGODB_URI , {useNewUrlParser:true,useUnifiedTopology:true,});
+await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rereddit' , {useNewUrlParser:true,useUnifiedTopology:true,});
 const db = mongoose.connection;
 db.on('error', console.log);
 
