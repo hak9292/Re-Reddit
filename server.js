@@ -104,17 +104,7 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').send();
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static( 'client/build' ));
 
-  app.get('/', (req, res) => {
-      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
-  });
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
-});
-}
 app.get('/comments', (req, res) => {
   Comment.find()
   .then(comments => {
@@ -137,6 +127,20 @@ app.get('/comments/:id', (req, res) => {
   });
   // res.json(req);
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static( 'client/build' ));
+
+  app.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+  });
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+});
+}
+
 app.listen(PORT, () => {
   console.log(`Server is starting at PORT: ${PORT}`);
 });
