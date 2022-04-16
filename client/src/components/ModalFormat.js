@@ -9,16 +9,20 @@ import { Navbar, Nav, Container, Modal, Tab, Row, Col, Form, Button } from 'reac
 const ModalFormat = (props) => {
   // set modal display state
   const [showModal, setShowModal] = useState(false);
+  
   const [comment, setComment] = useState({});
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
 
   return (
-    <>
-      <Nav.Link onClick={() => setShowModal(true)}>Login/Sign Up</Nav.Link>
-      {/* set modal data up */}
+
+      // <Nav.Link onClick={() => setShowModal(true)}>Post Modal</Nav.Link>
+      // {/* set modal data up */}
       <Modal
+        {...props}
         size='xl'
-        show={showModal}
-        onHide={() => setShowModal(false)}
+        // show={showModal}
+        // onHide={() => setShowModal(false)}
         aria-labelledby='signup-modal'>
         {/* tab container to do either signup or login component */}
         <Tab.Container defaultActiveKey='post'>
@@ -47,66 +51,75 @@ const ModalFormat = (props) => {
             <Tab.Content>
               <Tab.Pane eventKey='post'>
                 <Form>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-2">
                     {/* <Form.Label>
                     </Form.Label> */}
-                    <Form.Control as="input" placeholder="Title" />
+                    <Form.Control as="input" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)}/>
                   </Form.Group>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-2">
                     {/* <Form.Label>
                     </Form.Label> */}
-                    <Form.Control as="textarea" placeholder="Text (optional)" />
+                    <Form.Control as="textarea" placeholder="Text (optional)" value={body} onChange={e => setBody(e.target.value)}/>
                   </Form.Group>
                 </Form>
+                <div className="text-right">
                 <Button variant="light">Save Draft</Button>
-                <Button variant="secondary">Post</Button>
+                <Button variant="secondary" onClick={e => setTitle(e)}>Post</Button>
+                </div>
               </Tab.Pane>
               <Tab.Pane eventKey='iAndV'>
                 <Form>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-2">
                     <Form.Control as="input" placeholder="Title" />
                   </Form.Group>
-                  <Form.Group controlId="formFileMultiple" className="mb-3">
+                  <Form.Group controlId="formFileMultiple" className="mb-2">
                     <Form.Label>Choose image & video files to upload</Form.Label>
                     <Form.Control type="file" multiple />
                   </Form.Group>
                 </Form>
+                <div className="text-right">
                 <Button variant="light">Cancel</Button>
                 <Button variant="secondary">Post</Button>
+                </div>
               </Tab.Pane>
               <Tab.Pane eventKey='link'>
                 <Form>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-2">
                     {/* <Form.Label>
                     </Form.Label> */}
                     <Form.Control as="input" placeholder="Title" />
                   </Form.Group>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-2">
                     {/* <Form.Label>
                     </Form.Label> */}
                     <Form.Control as="textarea" placeholder="Url" />
                   </Form.Group>
                 </Form>
+                <div className="text-right">
                 <Button variant="light">Save Draft</Button>
                 <Button variant="secondary">Post</Button>
+                </div>
               </Tab.Pane>
               <Tab.Pane eventKey='poll'>
                 <Form>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-2">
                     {/* <Form.Label>
                     </Form.Label> */}
                     <Form.Control as="input" placeholder="Title" />
                   </Form.Group>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-2">
                     {/* <Form.Label>
                     </Form.Label> */}
                     <Form.Control as="textarea" placeholder="Text (optional)" />
                   </Form.Group>
-                  <Form.Control as="input" placeholder="Option 1" />
+                  <Form.Control as="input" placeholder="Option 1" className='mb-1'/>
                   <Form.Control as="input" placeholder="Option 2" />
                 </Form>
+                <div className="text-right mt-3">
                 <Button variant="light">Cancel</Button>
                 <Button variant="secondary">Post</Button>
+                </div>
+  
               </Tab.Pane>
             </Tab.Content>
             {/* <Container> */}
@@ -185,7 +198,6 @@ const ModalFormat = (props) => {
           </Modal.Body>
         </Tab.Container>
       </Modal>
-    </>
   );
 };
 

@@ -14,14 +14,14 @@ import {
   PlusIcon,
   UserIcon
 } from "@heroicons/react/outline";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Header() {
 
   // show modal
   const [modalShow, setModalShow] = React.useState(false);
   const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('d-none');
-  const [modalType, setModalType] = useState('login');
+  // const [modalType, setModalType] = useState('login');
   // const modalType = this.props.modalType
 
   function toggleUserDropdown() {
@@ -39,10 +39,10 @@ function Header() {
     <div >
       <header>
         <div className='rereddit-header d-inline-flex justify-content-between'>
-         {/* logo */}
-         <div>
-         <Link to="/">
-            <img src={Logo} alt="rereddit logo" className='rereddit-logo m-2'/>
+          {/* logo */}
+          <div>
+            <Link to="/">
+              <img src={Logo} alt="rereddit logo" className='rereddit-logo m-2' />
             </Link>
           </div>
           {/* search box */}
@@ -56,62 +56,62 @@ function Header() {
           </div>
 
           {user.username && (
-          <div className='d-md-inline-flex text-nowrap d-none'>
-            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}} >
-              <ChatIcon className="icon-user" />
-            </Button>
-            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}}>
-              <BellIcon  className="icon-user"/>
-            </Button>
-            <Button style={{backgroundColor: '#030303', borderColor: '#030303'}}>
-              <PlusIcon  className="icon-user"/>
-            </Button>
-          </div>   
+            <div className='d-md-inline-flex text-nowrap d-none'>
+              <Button style={{ backgroundColor: '#030303', borderColor: '#030303' }} >
+                <ChatIcon className="icon-user" />
+              </Button>
+              <Button style={{ backgroundColor: '#030303', borderColor: '#030303' }}>
+                <BellIcon className="icon-user" />
+              </Button>
+              <Button style={{ backgroundColor: '#030303', borderColor: '#030303' }}>
+                <PlusIcon className="icon-user" />
+              </Button>
+            </div>
 
-        )}
+          )}
 
-        {!user.username && (
-          /* Login/Signup Buttons */
+          {!user.username && (
+            /* Login/Signup Buttons */
             <div className='d-md-inline-flex text-nowrap d-none col-6 px-1'>
               {/* Connect with modal button on click, copied without onclick functionality */}
-              <Button outline variant="primary" 
-              onClick={() => {
-                authModal.setShow('login');
-                setModalShow(true);
+              <Button outline variant="primary"
+                onClick={() => {
+                  authModal.setShow('login');
+                  setModalShow(true);
                 }}
-                > 
-                Log In 
+              >
+                Log In
               </Button>
 
               <Button onClick={() => {
                 authModal.setShow('register');
                 setModalShow(true);
               }}
-              > 
-              Sign Up 
+              >
+                Sign Up
               </Button>
 
-            </div>      
-        )}
+            </div>
+          )}
 
-        
-        <AuthModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          setModalShow={setModalShow}
-        />
+
+          <AuthModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            setModalShow={setModalShow}
+          />
 
           {/* user dropdown */}
           <span className='user-dropdown'>
-            <ClickOutHandler onClickOut={()=> setUserDropdownVisibilityClass('d-none')}>
+            <ClickOutHandler onClickOut={() => setUserDropdownVisibilityClass('d-none')}>
               <button className='bg-transparent' onClick={() => toggleUserDropdown()}>
                 <div className='container d-inline-flex align-items-center px-0'>
                   <div className='col-6 p-1'>
                     {!user.username && (
                       <UserIcon className="icon-user" />
-                      )}
+                    )}
                     {user.username && (
-                      <img src={Avatar} className='default-avatar'/>
+                      <img src={Avatar} className='default-avatar' />
                     )}
                   </div>
                   <div className='col-6 p-1'>
@@ -123,21 +123,21 @@ function Header() {
 
                 {/* Prompt this screen if logged out */}
                 {!user.username && (
-                  <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                  <div className={'drop-menu ' + userDropdownVisibilityClass}>
                     <button onClick={() => setModalShow(true)}>
-                        <i className="bi bi-box-arrow-left icon py-2"></i> Log In / Sign Up
-                    </button> 
+                      <i className="bi bi-box-arrow-left icon py-2"></i> Log In / Sign Up
+                    </button>
                   </div>
                 )}
 
                 {user.username && (
-                  <div className={'drop-menu ' + userDropdownVisibilityClass }>
+                  <div className={'drop-menu ' + userDropdownVisibilityClass}>
                     <div className='mx-5 my-2'>
                       Welcome, {user.username}!
                     </div>
                     <button onClick={() => user.logout()}>
-                        <i className="bi bi-box-arrow-right icon py-2"></i> Log Out
-                    </button> 
+                      <i className="bi bi-box-arrow-right icon py-2"></i> Log Out
+                    </button>
                   </div>
                 )}
 
