@@ -64,7 +64,7 @@ function AuthModal(props) {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        className={visibleClass}
+        // className={visibleClass}
       >
         <ClickOutHandler onClickOut={() => modalContext.setShow(false)}>
           <Modal.Header closeButton >
@@ -113,7 +113,7 @@ function AuthModal(props) {
               {/* set state to 'register' if the sign up button is clicked */}
               {modalType === 'login' && (
                   <div>
-                    New to Reddit? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => modalContext.setShow('register')}  className='my-2'>Sign Up</Button>
+                    New to Re-Reddit? <Button style={{backgroundColor: '#030303', borderColor: '#030303', color: '#ED001C'}} onClick={() => modalContext.setShow('register')}  className='my-2'>Sign Up</Button>
                   </div>
               )}
                 {modalType === 'register' && (
