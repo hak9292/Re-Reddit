@@ -1,4 +1,3 @@
-// import Comment from "./Comment";
 import {useState,useEffect} from "react";
 import axios from "axios";
 import Post from './Post'

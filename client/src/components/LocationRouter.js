@@ -8,7 +8,7 @@ import {
     useLocation
 } from "react-router-dom";
 
-function RoutingSwitch() {
+function LocationRouter() {
     let location = useLocation();
     let commentId = null;
 
@@ -35,4 +35,4 @@ function RoutingSwitch() {
     )
 }
 
-export default RoutingSwitch;
+export default LocationRouter;

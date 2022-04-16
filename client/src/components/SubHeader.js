@@ -22,5 +22,4 @@ function SubHeader () {
         </section>
     )
 }
-
 export default SubHeader;
