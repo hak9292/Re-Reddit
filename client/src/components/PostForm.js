@@ -7,13 +7,6 @@ import PostFormModal from './PostFormModal';
 function PostForm() {
     const [showModal, setShowModal] = useState(false);
 
-    // function renderModal() {
-    //     return(
-    //         <ModalFormat>
-    //         </ModalFormat>
-    //     )
-    // }
-    // const postModal = useContext(ModalFormat);
     return (
         <>
         <PostFormModal

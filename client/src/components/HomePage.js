@@ -2,7 +2,7 @@ import SubHeader from "./SubHeader";
 import PostForm from "./PostForm";
 import PostsListing from "./PostsListing";
 
-function Board() {
+function HomePage() {
   return (
   <div>
     <SubHeader />
@@ -12,4 +12,4 @@ function Board() {
   );
 }
 
-export default Board;
+export default HomePage;
