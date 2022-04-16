@@ -18,11 +18,8 @@ import { Link } from 'react-router-dom';
 
 function Header() {
 
-  // show modal
   const [modalShow, setModalShow] = React.useState(false);
   const [userDropdownVisibilityClass, setUserDropdownVisibilityClass] = useState('d-none');
-  // const [modalType, setModalType] = useState('login');
-  // const modalType = this.props.modalType
 
   function toggleUserDropdown() {
     if (userDropdownVisibilityClass === 'd-none') {

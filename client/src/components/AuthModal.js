@@ -1,9 +1,7 @@
 import './AuthModal.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-// import InputGroup from 'react-bootstrap/InputGroup';
-// import FormControl from 'react-bootstrap/FormControl';
-import Input from './Input';
+// import Input from './Input';
 import {useState, useContext} from 'react';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
@@ -28,7 +26,6 @@ function AuthModal(props) {
 
     const visibleClass = modalContext.show !== false ? 'block' : 'hidden';
 
-    // make state the same as setShow
     if (modalContext.show && modalContext.show !== modalType) {
       setModalType(modalContext.show);
     }
@@ -64,7 +61,6 @@ function AuthModal(props) {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        // className={visibleClass}
       >
         <ClickOutHandler onClickOut={() => modalContext.setShow(false)}>
           <Modal.Header closeButton >
