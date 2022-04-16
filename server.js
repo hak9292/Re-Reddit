@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 4000;
 const secret = process.env.SECRET;
 
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({
   origin: ['http://localhost:3000', 'https://re-reddit-app.herokuapp.com/'],
@@ -34,61 +34,61 @@ function getUserFromToken(token) {
   return User.findById(userInfo.id);
 }
 
-await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rereddit' , {useNewUrlParser:true,useUnifiedTopology:true,});
+await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/rereddit', { useNewUrlParser: true, useUnifiedTopology: true, });
 const db = mongoose.connection;
 db.on('error', console.log);
 
 if (process.env.NODE_ENV !== 'production') {
-app.get('/', (req, res) => {
+  app.get('/', (req, res) => {
     res.send('ok');
   });
 }
 
 app.post('/register', (req, res) => {
-    const {email,username} = req.body;
-    // encrypt password with bcrypt
-    const password = bcrypt.hashSync(req.body.password, 10);
-    const user = new User({email,username,password});
-    user.save().then(user => {
-        jwt.sign({id:user._id}, secret, (err, token) => {
-        if (err) {
-            console.log(err);
-            res.sendStatus(500);
-        } else {
-            res.status(201).cookie('token', token).send();
-        }
-        });
-    }).catch(e => {
-        console.log(e);
+  const { email, username } = req.body;
+  // encrypt password with bcrypt
+  const password = bcrypt.hashSync(req.body.password, 10);
+  const user = new User({ email, username, password });
+  user.save().then(user => {
+    jwt.sign({ id: user._id }, secret, (err, token) => {
+      if (err) {
+        console.log(err);
         res.sendStatus(500);
+      } else {
+        res.status(201).cookie('token', token).send();
+      }
     });
+  }).catch(e => {
+    console.log(e);
+    res.sendStatus(500);
+  });
 });
 
 
 app.get('/user', (req, res) => {
-    const token = req.cookies.token;
-  
-    getUserFromToken(token)
-      .then(user => {
-        res.json({username:user.username});
-      })
-      .catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-      });
-  
-  });
+  const token = req.cookies.token;
+
+  getUserFromToken(token)
+    .then(user => {
+      res.json({ username: user.username });
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+
+});
 
 
 
 
 app.post('/login', (req, res) => {
-  const {username, password} = req.body;
-  User.findOne({username}).then(user => {
+  const { username, password } = req.body;
+  User.findOne({ username }).then(user => {
     if (user && user.username) {
       const passOk = bcrypt.compareSync(password, user.password);
       if (passOk) {
-        jwt.sign({id:user._id}, secret, (err, token) => {
+        jwt.sign({ id: user._id }, secret, (err, token) => {
           res.cookie('token', token).send();
         });
       } else {
@@ -107,38 +107,54 @@ app.post('/logout', (req, res) => {
 
 app.get('/comments', (req, res) => {
   Comment.find()
-  .then(comments => {
-    res.json(comments);
-  })
-  .catch(err => {
-    console.log(err);
-    res.sendStatus(500);
-  });
+    .then(comments => {
+      res.json(comments);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
 });
 
 app.get('/comments/:id', (req, res) => {
   Comment.findById(req.params.id)
-  .then(comment => {
-    res.json(comment);
-  })
-  .catch(err => {
-    console.log(err);
-    res.sendStatus(500);
-  });
+    .then(comment => {
+      res.json(comment);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
   // res.json(req);
 });
+app.post('/comments', (req, res) => {
+  const token = req.cookies.token;
+  getUserFromToken(token)
+    .then(userInfo => {
+      const { title, body } = req.body;
+      const comment = new Comment({ author:userInfo.username, title, body, date:new Date() });
+      comment.save()
+      .then(savedComment => {
+        res.json(savedComment);
+      })
+        .catch(console.log);
+    })
+    .catch(() => {
+      res.status(401);
+    })
 
+})
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static( 'client/build' ));
+  app.use(express.static('client/build'));
 
   app.get('/', (req, res) => {
-      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
   });
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html')); // relative path
-});
+  });
 }
 
 app.listen(PORT, () => {
