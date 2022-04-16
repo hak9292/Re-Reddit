@@ -7,7 +7,7 @@ import UserContext from './components/UserContext';
 import Routing from './components/Routing'
 import config from './configs';
 import PostFormModal from './components/PostFormModal';
-import ModalFormat from './components/ModalFormat';
+// import ModalFormat from './components/PostFormModal';
 
 function App() {
   const [showAuthModal,setShowAuthModal] = useState(false);
@@ -37,8 +37,8 @@ function App() {
       <UserContext.Provider value={{ ...user, logout, setUser }}>
         <Routing />
         <AuthModal />
-        {/* <PostFormModal /> */}
-        <ModalFormat />
+        <PostFormModal />
+        {/* <ModalFormat /> */}
 
 
         {/* <div className='post-area h-100'>
