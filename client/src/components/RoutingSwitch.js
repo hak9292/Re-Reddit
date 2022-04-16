@@ -1,26 +1,33 @@
 import Board from "./Board";
 import CommentPage from "./CommentPage";
-import PostModal from "./CommentModal";
+import CommentModal from "./CommentModal";
 import {
     Route,
     Switch,
     useLocation
 } from "react-router-dom";
+// import {useState, useEffect} from 'react';
 
 function RoutingSwitch() {
     let location = useLocation();
     let commentId = null;
+    // const [postOpen, setPostOpen] = useState(false);
+
     if (location.state && location.state.commentId) {
         location.pathname = '/';
         commentId = location.state.commentId;
 
     }
-    console.log(location);
+    // console.log(location);
     return (
         <div>
             {commentId && (
                 <div>
-                    <PostModal id={commentId}/>
+                    <CommentModal
+                    id={commentId}
+                        // open={postOpen}
+                        // onClickout={() => setPostOpen(false)}
+                    />
                 </div>
             )}
             <Switch location={location}>
