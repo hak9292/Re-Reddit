@@ -6,6 +6,8 @@ import axios from 'axios';
 import UserContext from './components/UserContext';
 import Routing from './components/Routing'
 import config from './configs';
+import PostFormModal from './components/PostFormModal';
+import ModalFormat from './components/ModalFormat';
 
 function App() {
   const [showAuthModal,setShowAuthModal] = useState(false);
@@ -35,6 +37,8 @@ function App() {
       <UserContext.Provider value={{ ...user, logout, setUser }}>
         <Routing />
         <AuthModal />
+        {/* <PostFormModal /> */}
+        <ModalFormat />
 
 
         {/* <div className='post-area h-100'>
