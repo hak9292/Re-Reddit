@@ -1,15 +1,14 @@
 import Header from "./Header";
-import RoutingSwitch from "./RoutingSwitch"
+import LocationRouter from "./LocationRouter"
 import {
     BrowserRouter as Router
 } from "react-router-dom";
-function Routing() {
+function RouterShell() {
     return (
         <Router>
             <Header />
-            <RoutingSwitch />
+            <LocationRouter />
         </Router>
     );
 }
-
-export default Routing;
+export default RouterShell;

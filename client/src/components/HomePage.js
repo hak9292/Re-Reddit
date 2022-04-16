@@ -1,12 +1,12 @@
 import SubHeader from "./SubHeader";
-import PostForm from "./PostForm";
+import CreatePost from "./CreatePost";
 import PostsListing from "./PostsListing";
 
 function HomePage() {
   return (
   <div>
     <SubHeader />
-    <PostForm />
+    <CreatePost />
     <PostsListing />
   </div>
   );

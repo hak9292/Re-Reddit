@@ -2,14 +2,14 @@ import React from 'react';
 import './Header.css';
 import Avatar from '../assets/default-avatar.webp';
 import {useState} from 'react';
-import PostFormModal from './PostFormModal';
+import CreatePostModal from './CreatePostModal';
 
-function PostForm() {
+function CreatePost() {
     const [showModal, setShowModal] = useState(false);
 
     return (
         <>
-        <PostFormModal
+        <CreatePostModal
           show={showModal}
           onHide={() => setShowModal(false)}
           setShowModal={setShowModal}
@@ -33,4 +33,4 @@ function PostForm() {
     )
 }
 
-export default PostForm;
+export default CreatePost;
