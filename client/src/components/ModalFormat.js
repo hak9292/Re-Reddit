@@ -5,15 +5,27 @@ import { Navbar, Nav, Container, Modal, Tab, Row, Col, Form, Button } from 'reac
 // import LoginForm from './LoginForm';
 
 // import Auth from '../utils/auth';
+import axios from 'axios';
+import config from '../configs';
 
 const ModalFormat = (props) => {
   // set modal display state
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   
-  const [comment, setComment] = useState({});
+  // const [comment, setComment] = useState({});
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
+  function createPost() {
+    const data = { title, body };
+    axios.post(`${config.SERVER_URI}/comments`, data, {withCredentials:true})
+    .then(response => {
+      // console.log(response.json());
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
   return (
 
       // <Nav.Link onClick={() => setShowModal(true)}>Post Modal</Nav.Link>
@@ -54,17 +66,17 @@ const ModalFormat = (props) => {
                   <Form.Group className="mb-2">
                     {/* <Form.Label>
                     </Form.Label> */}
-                    <Form.Control as="input" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)}/>
+                    <Form.Control as="input" placeholder="Title" onChange={e => setTitle(e.target.value)}  value={title}/>
                   </Form.Group>
                   <Form.Group className="mb-2">
                     {/* <Form.Label>
                     </Form.Label> */}
-                    <Form.Control as="textarea" placeholder="Text (optional)" value={body} onChange={e => setBody(e.target.value)}/>
+                    <Form.Control as="textarea" placeholder="Text (optional)" onChange={e => setBody(e.target.value)} value={body}/>
                   </Form.Group>
                 </Form>
                 <div className="text-right">
                 <Button variant="light">Save Draft</Button>
-                <Button variant="secondary" onClick={e => setTitle(e)}>Post</Button>
+                <Button variant="secondary" onClick={() => createPost()}>Post</Button>
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey='iAndV'>
