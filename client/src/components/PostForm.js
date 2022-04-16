@@ -1,8 +1,8 @@
 import React from 'react';
 import './Header.css';
 import Avatar from '../assets/default-avatar.webp';
-import {useContext, useState} from 'react';
-import ModalFormat from './ModalFormat';
+import {useState} from 'react';
+import PostFormModal from './PostFormModal';
 
 function PostForm() {
     const [showModal, setShowModal] = useState(false);
@@ -13,10 +13,10 @@ function PostForm() {
     //         </ModalFormat>
     //     )
     // }
-    const postModal = useContext(ModalFormat);
+    // const postModal = useContext(ModalFormat);
     return (
         <>
-        <ModalFormat
+        <PostFormModal
           show={showModal}
           onHide={() => setShowModal(false)}
           setShowModal={setShowModal}

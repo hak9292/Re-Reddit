@@ -27,9 +27,10 @@ function CommentModal(props) {
     // }
     return (
         <>
-            <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
+        {console.log(props)}
+            <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>ID: {props.id}</Modal.Title>
+                    <Modal.Title>Post ID: {props.id}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <PostContent {...comment}/>

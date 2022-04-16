@@ -1,81 +1,212 @@
-// import Modal from 'react-bootstrap/Modal';
-// import {useState, useContext} from 'react';
-// import AuthModalContext from './AuthModalContext';
-// import ClickOutHandler from 'react-clickout-handler';
-// import UserContext from './UserContext';
-// import config from '../configs';
-// import Button from 'react-bootstrap/Button';
-import { Modal, Button } from 'react-bootstrap';
-import './AuthModal.css'
-import UserContext from './UserContext';
-import AuthModalContext from './AuthModalContext';
-import { useState, useEffect } from 'react';
-import PostContent from './Post';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Navbar, Nav, Container, Modal, Tab, Row, Col, Form, Button } from 'react-bootstrap';
+// import SignUpForm from './SignupForm';
+// import LoginForm from './LoginForm';
+
+// import Auth from '../utils/auth';
 import axios from 'axios';
 import config from '../configs';
 
-function PostFormModal(props) {
-    const [ comment, setComment ] = useState({});
+const PostFormModal = (props) => {
+  // set modal display state
+  // const [showModal, setShowModal] = useState(false);
   
-    useEffect(() => {
-        console.log(config.SERVER_URI);
-      axios.get(`${config.SERVER_URI}/comments/`+props.id)
-      .then(response => setComment(response.data));
-    }, []);
-    // const visibleClass = 'block';
-    // const values = [true];
-    const [fullscreen, setFullscreen] = useState(true);
-    const [show, setShow] = useState(true);
+  // const [comment, setComment] = useState({});
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
 
-    // function handleShow(breakpoint) {
-    //     setFullscreen(breakpoint);
-    //     setShow(true);
-    // }
-    return (
-        <>
-            <Modal show={show} fullscreen={fullscreen} onHide={() => setShow(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>ID: {props.id}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <PostContent {...comment}/>
-                </Modal.Body>
-            </Modal>
-            {/* <Modal.Header closeButton ></Modal.Header>
-            <Modal.Title className='modal-content' id="contained-modal-title-vcenter"></Modal.Title> */}
-        </>
-    );
-    // const [modalType, setModalType] = useState('login');
-    // const modalContext = useContext(AuthModalContext);
-    // const user = useContext(UserContext);
-    // // const visibleClass = 'block';
-    // const visibleClass = modalContext.show !== false ? 'block' : 'hidden';
-    // if (modalContext.show && modalContext.show !== modalType) {
-    //     setModalType(modalContext.show);
-    //   }
-    // return (
-    //     <div>
-    //         <Modal style={{ backgroundColor: 'rgba(0,0,0,.6)' }}
-    //             {...props}
-    //             size="lg"
-    //             aria-labelledby="contained-modal-title-vcenter"
-    //             centered
-    //             className={visibleClass}
-    //         >
-    //             {/* <ClickOutHandler onClickOut={() => {}}> */}
-    //             <ClickOutHandler onClickOut={() => modalContext.setShow(false)}>
-    //                 <Modal.Header closeButton >
-    //                 </Modal.Header>
-    //                 <Modal.Footer>
-    //         <Button onClick={props.onHide} style={{backgroundColor: '#BCC0C1', borderColor: '#BCC0C1', color: '#27272A'}}>Close</Button>
-    //       </Modal.Footer>
-    //             </ClickOutHandler>
-    //         </Modal>
-    //     </div>
-    // );
-}
+  function createPost() {
+    const data = { title, body };
+    axios.post(`${config.SERVER_URI}/comments`, data, {withCredentials:true})
+    // function to confirm that post was added, and exit modal
+    
+  }
+  return (
+
+      // <Nav.Link onClick={() => setShowModal(true)}>Post Modal</Nav.Link>
+      // {/* set modal data up */}
+      <Modal
+        {...props}
+        size='xl'
+        // show={showModal}
+        // onHide={() => setShowModal(false)}
+        aria-labelledby='create-form-modal'>
+        {/* tab container to do either signup or login component */}
+        <Tab.Container defaultActiveKey='post'>
+          <Modal.Header closeButton>
+            <Modal.Title id='create-form-modal'>Create a post
+              <Nav variant='dark'>
+                <Nav.Item>
+                  <Nav.Link eventKey='post' className='createPostTitle'>Post</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey='iAndV' className='createPostTitle'>Images & Video</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey='link' className='createPostTitle'>Link</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey='poll' className='createPostTitle'>Poll</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey='Talk' className='createPostTitle'>Talk</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Tab.Content>
+              <Tab.Pane eventKey='post'>
+                <Form>
+                  <Form.Group className="mb-2">
+                    {/* <Form.Label>
+                    </Form.Label> */}
+                    <Form.Control as="input" placeholder="Title" onChange={e => setTitle(e.target.value)}  value={title}/>
+                  </Form.Group>
+                  <Form.Group className="mb-2">
+                    {/* <Form.Label>
+                    </Form.Label> */}
+                    <Form.Control as="textarea" placeholder="Text (optional)" onChange={e => setBody(e.target.value)} value={body}/>
+                  </Form.Group>
+                </Form>
+                <div className="text-right">
+                <Button variant="light">Save Draft</Button>
+                <Button variant="secondary" onClick={() => createPost()}>Post</Button>
+                </div>
+              </Tab.Pane>
+              <Tab.Pane eventKey='iAndV'>
+                <Form>
+                  <Form.Group className="mb-2">
+                    <Form.Control as="input" placeholder="Title" />
+                  </Form.Group>
+                  <Form.Group controlId="formFileMultiple" className="mb-2">
+                    <Form.Label>Choose image & video files to upload</Form.Label>
+                    <Form.Control type="file" multiple />
+                  </Form.Group>
+                </Form>
+                <div className="text-right">
+                <Button variant="light">Cancel</Button>
+                <Button variant="secondary">Post</Button>
+                </div>
+              </Tab.Pane>
+              <Tab.Pane eventKey='link'>
+                <Form>
+                  <Form.Group className="mb-2">
+                    {/* <Form.Label>
+                    </Form.Label> */}
+                    <Form.Control as="input" placeholder="Title" />
+                  </Form.Group>
+                  <Form.Group className="mb-2">
+                    {/* <Form.Label>
+                    </Form.Label> */}
+                    <Form.Control as="textarea" placeholder="Url" />
+                  </Form.Group>
+                </Form>
+                <div className="text-right">
+                <Button variant="light">Save Draft</Button>
+                <Button variant="secondary">Post</Button>
+                </div>
+              </Tab.Pane>
+              <Tab.Pane eventKey='poll'>
+                <Form>
+                  <Form.Group className="mb-2">
+                    {/* <Form.Label>
+                    </Form.Label> */}
+                    <Form.Control as="input" placeholder="Title" />
+                  </Form.Group>
+                  <Form.Group className="mb-2">
+                    {/* <Form.Label>
+                    </Form.Label> */}
+                    <Form.Control as="textarea" placeholder="Text (optional)" />
+                  </Form.Group>
+                  <Form.Control as="input" placeholder="Option 1" className='mb-1'/>
+                  <Form.Control as="input" placeholder="Option 2" />
+                </Form>
+                <div className="text-right mt-3">
+                <Button variant="light">Cancel</Button>
+                <Button variant="secondary">Post</Button>
+                </div>
+  
+              </Tab.Pane>
+            </Tab.Content>
+            {/* <Container> */}
+            {/* <Row>
+                <Col>
+                  Post
+                </Col>
+                <Col>
+                  Images & Video
+                </Col>
+                <Col>
+                  Link
+                </Col>
+                <Col>
+                  Poll
+                </Col>
+                <Col>
+                  Talk
+                </Col>
+              </Row> */}
+
+
+
+            {/* Working Code */}
+
+            {/* <Row>
+                <Col>
+                  <Form>
+                    <Form.Group className="mb-3"
+                      controlId="formBasicEmail">
+                      <Form.Label>
+                      </Form.Label>
+                      <Form.Control type="email" placeholder="Title" />
+                    </Form.Group>
+                  </Form>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form>
+                    <Form.Group className="mb-3"
+                      controlId="formBasicEmail">
+                      <Form.Label>
+                      </Form.Label>
+                      <Form.Control type="email" placeholder="Text (optional)" />
+                    </Form.Group>
+                  </Form>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                </Col>
+                <Col>
+                  <Button variant="primary" type="submit">
+                    Save Draft
+                  </Button>
+                </Col>
+                <Col>
+                <Button variant="primary" type="submit">
+                    Post
+                  </Button>
+                </Col>
+              </Row> */}
+            {/* </Container> */}
+
+
+
+            {/* <Tab.Content>
+              <Tab.Pane eventKey='login'>
+                <LoginForm handleModalClose={() => setShowModal(false)} />
+              </Tab.Pane>
+              <Tab.Pane eventKey='signup'>
+                <SignUpForm handleModalClose={() => setShowModal(false)} />
+              </Tab.Pane>
+            </Tab.Content> */}
+          </Modal.Body>
+        </Tab.Container>
+      </Modal>
+  );
+};
 
 export default PostFormModal;
-
-// const visibleClass = modalContext.show !== false ? 'block' : 'hidden';
-{/* <ClickOutHandler onClickOut={() => modalContext.setShow(false)}> */}
